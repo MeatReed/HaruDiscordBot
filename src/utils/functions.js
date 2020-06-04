@@ -22,6 +22,13 @@ module.exports = client => {
   }
 
   client.getGuild = async guild => {
-    
+    try {
+      const requestGuild = await client.mysql.promiseRequest.query('SELECT * FROM guilds WHERE ?', {
+        guild_id: guild.id
+      })
+      return requestGuild[0]
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
   }
 }
