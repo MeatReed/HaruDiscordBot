@@ -12,30 +12,34 @@ module.exports = class KickCommand extends BaseCommand {
       nsfw: false,
       aliases: [],
       userPermissions: ['KICK_MEMBERS'],
-      clientPermissions: ['KICK_MEMBERS']
+      clientPermissions: ['KICK_MEMBERS'],
     })
   }
 
   run(client, message, args) {
-    if(!args[0]) {
+    if (!args[0]) {
       message.channel.send('Aucun utilisateur spécifié.')
       return
     }
     const user = client.fetchUser(args[0], message)
     let reason = args.slice(1).join(' ')
-    if(!user) {
+    if (!user) {
       message.channel.send('Utilisateur introuvable !')
       return
     } else if (message.author.id === user.id) {
       message.reply('Vous ne pouvez pas vous expulser !')
       return
     }
-    if(!reason) {
+    if (!reason) {
       reason = 'Aucune raison spécifié.'
     }
-    message.guild.members.cache.get(user.id).kick({ reason })
-      .then((usr)  => {
-        message.channel.send(`L'utilisateur <@${user.id}> a été expulsé. Raison : ${reason}`)
+    message.guild.members.cache
+      .get(user.id)
+      .kick({ reason })
+      .then((usr) => {
+        message.channel.send(
+          `L'utilisateur <@${user.id}> a été expulsé. Raison : ${reason}`
+        )
       })
       .catch((error) => {
         message.reply('impossible de expulser cet utilisateur !')

@@ -12,11 +12,11 @@ module.exports = class TestCommand extends BaseCommand {
       nsfw: false,
       aliases: ['t'],
       userPermissions: ['BAN_MEMBERS'],
-      clientPermissions: ['BAN_MEMBERS']
+      clientPermissions: ['BAN_MEMBERS'],
     })
   }
 
-  async run(client, message, args) {
+  run(client, message, args) {
     message.channel.send('Test command works')
   }
 }

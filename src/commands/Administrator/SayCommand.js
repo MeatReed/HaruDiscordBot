@@ -12,14 +12,16 @@ module.exports = class SayCommand extends BaseCommand {
       nsfw: false,
       aliases: [],
       userPermissions: ['MANAGE_CHANNELS'],
-      clientPermissions: []
+      clientPermissions: [],
     })
   }
 
-  async run(client, message, args) {
+  run(client, message, args) {
     const msg = args.join(' ')
-    if(!msg) {
-      message.reply('vous avez oublié d\'insérer le message que vous voulez envoyer avec Haru !')
+    if (!msg) {
+      message.reply(
+        "vous avez oublié d'insérer le message que vous voulez envoyer avec Haru !"
+      )
       return
     }
     message.channel.send(msg)

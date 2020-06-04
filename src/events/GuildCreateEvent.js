@@ -1,11 +1,11 @@
 // https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildCreate
-const BaseEvent = require('../utils/structures/BaseEvent');
+const BaseEvent = require('../utils/structures/BaseEvent')
 module.exports = class GuildCreateEvent extends BaseEvent {
   constructor() {
-    super('guildCreate');
+    super('guildCreate')
   }
-  
-  async run(client, guild) {
+
+  run(client, guild) {
     client.createGuild(guild)
   }
 }
