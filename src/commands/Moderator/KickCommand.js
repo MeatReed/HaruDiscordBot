@@ -1,18 +1,18 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class BanCommand extends BaseCommand {
+module.exports = class KickCommand extends BaseCommand {
   constructor() {
     super({
-      name: 'ban',
+      name: 'kick',
       description: '',
       category: 'Modération',
-      usage: 'ban [utilisateur] {raison}',
+      usage: 'kick [utilisateur] {raison}',
       enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: ['BAN_MEMBERS'],
-      clientPermissions: ['BAN_MEMBERS']
+      userPermissions: ['KICK_MEMBERS'],
+      clientPermissions: ['KICK_MEMBERS']
     })
   }
 
@@ -27,18 +27,18 @@ module.exports = class BanCommand extends BaseCommand {
       message.channel.send('Utilisateur introuvable !')
       return
     } else if (message.author.id === user.id) {
-      message.reply('Vous ne pouvez pas vous bannir !')
+      message.reply('Vous ne pouvez pas vous expulser !')
       return
     }
     if(!reason) {
       reason = 'Aucune raison spécifié.'
     }
-    message.guild.members.ban(user.id, { reason })
+    message.guild.members.cache.get(user.id).kick({ reason })
       .then((usr)  => {
-        message.channel.send(`L'utilisateur <@${user.id}> a été banni. Raison : ${reason}`)
+        message.channel.send(`L'utilisateur <@${user.id}> a été expulsé. Raison : ${reason}`)
       })
       .catch((error) => {
-        message.reply('impossible de bannir cet utilisateur !')
+        message.reply('impossible de expulser cet utilisateur !')
       })
   }
 }
