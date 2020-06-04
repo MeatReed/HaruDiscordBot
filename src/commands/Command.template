@@ -1,0 +1,20 @@
+const BaseCommand = require('../../utils/structures/BaseCommand')
+
+module.exports = class NameClassCommand extends BaseCommand {
+  constructor() {
+    super({
+      name: '',
+      description: '',
+      category: '',
+      usage: '',
+      enabled: true,
+      guildOnly: false,
+      nsfw: false,
+      aliases: []
+    })
+  }
+
+  async run(client, message, args) {
+    message.channel.send('Test command works')
+  }
+}
