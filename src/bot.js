@@ -5,6 +5,7 @@ const client = new Client()
 
 ;(async () => {
   require('./utils/functions')(client)
+  require('./utils/messages')(client)
   client.mysql = require('./utils/mysql').init()
   client.commands = new Map()
   client.events = new Map()

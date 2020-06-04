@@ -19,8 +19,9 @@ module.exports = class SayCommand extends BaseCommand {
   run(client, message, args) {
     const msg = args.join(' ')
     if (!msg) {
-      message.reply(
-        "vous avez oublié d'insérer le message que vous voulez envoyer avec Haru !"
+      client.ErrorEmbed(
+        message,
+        "Vous avez oublié d'insérer le message que vous voulez envoyer avec Haru !"
       )
       return
     }

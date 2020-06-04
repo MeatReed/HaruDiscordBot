@@ -18,16 +18,16 @@ module.exports = class KickCommand extends BaseCommand {
 
   run(client, message, args) {
     if (!args[0]) {
-      message.channel.send('Aucun utilisateur spécifié.')
+      client.ErrorEmbed(message, 'Aucun utilisateur spécifié.')
       return
     }
     const user = client.fetchUser(args[0], message)
     let reason = args.slice(1).join(' ')
     if (!user) {
-      message.channel.send('Utilisateur introuvable !')
+      client.ErrorEmbed(message, 'Utilisateur introuvable !')
       return
     } else if (message.author.id === user.id) {
-      message.reply('Vous ne pouvez pas vous expulser !')
+      client.ErrorEmbed(message, 'Vous ne pouvez pas vous expulser !')
       return
     }
     if (!reason) {
@@ -37,12 +37,13 @@ module.exports = class KickCommand extends BaseCommand {
       .get(user.id)
       .kick({ reason })
       .then((usr) => {
-        message.channel.send(
+        client.SuccesEmbed(
+          message,
           `L'utilisateur <@${user.id}> a été expulsé. Raison : ${reason}`
         )
       })
       .catch((error) => {
-        message.reply('impossible de expulser cet utilisateur !')
+        client.ErrorEmbed(message, 'Impossible de expulser cet utilisateur !')
       })
   }
 }

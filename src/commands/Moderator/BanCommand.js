@@ -18,16 +18,16 @@ module.exports = class BanCommand extends BaseCommand {
 
   run(client, message, args) {
     if (!args[0]) {
-      message.channel.send('Aucun utilisateur spécifié.')
+      client.ErrorEmbed(message, 'Aucun utilisateur spécifié.')
       return
     }
     const user = client.fetchUser(args[0], message)
     let reason = args.slice(1).join(' ')
     if (!user) {
-      message.channel.send('Utilisateur introuvable !')
+      client.ErrorEmbed(message, 'Utilisateur introuvable !')
       return
     } else if (message.author.id === user.id) {
-      message.reply('Vous ne pouvez pas vous bannir !')
+      client.ErrorEmbed(message, 'Vous ne pouvez pas vous bannir !')
       return
     }
     if (!reason) {
@@ -36,12 +36,13 @@ module.exports = class BanCommand extends BaseCommand {
     message.guild.members
       .ban(user.id, { reason })
       .then((usr) => {
-        message.channel.send(
+        client.SuccesEmbed(
+          message,
           `L'utilisateur <@${user.id}> a été banni. Raison : ${reason}`
         )
       })
       .catch((error) => {
-        message.reply('impossible de bannir cet utilisateur !')
+        client.ErrorEmbed(message, 'Impossible de bannir cet utilisateur !')
       })
   }
 }
