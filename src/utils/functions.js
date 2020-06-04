@@ -34,7 +34,7 @@ module.exports = client => {
     }
   }
 
-  client.fetchUser = async (user, message) => {
+  client.fetchUser = (user, message) => {
     if (!message.guild.members.cache.get(user)) {
       let members = []
       let indexes = []

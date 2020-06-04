@@ -10,7 +10,6 @@ module.exports = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE
     }
-
     const poolRequest = mysql.createPool(poolOptions);
     const promiseRequest = poolRequest.promise();
     return {

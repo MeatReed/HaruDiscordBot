@@ -6,18 +6,40 @@ module.exports = class BanCommand extends BaseCommand {
       name: 'ban',
       description: '',
       category: 'Modération',
-      usage: '',
+      usage: 'ban [utilisateur] {raison}',
       enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
-      clientPermissions: []
+      userPermissions: ['BAN_MEMBERS'],
+      clientPermissions: ['BAN_MEMBERS']
     })
   }
 
-  async run(client, message, args) {
-    const user = client.fetchUser(args.join(' '), message)
-    console.log(user)
+  run(client, message, args) {
+    if(!args[0]) {
+      message.channel.send('Aucun utilisateur spécifié.')
+      return
+    }
+    const user = client.fetchUser(args[0], message)
+    let reason = args.slice(1).join(' ')
+    console.log(user.id)
+    if(!user) {
+      message.channel.send('Utilisateur introuvable !')
+      return
+    } else if (message.author.id === user.id) {
+      message.reply('Vous ne pouvez pas vous bannir !')
+      return
+    }
+    if(!reason) {
+      reason = 'Aucune raison spécifié.'
+    }
+    message.guild.members.ban(user.id, { reason })
+    .then((usr)  => {
+      message.channel.send(`L'utilisateur ${user.username} a été banni. Raison : ${reason}`)
+    })
+    .catch((error) => {
+      message.reply('impossible de bannir cet utilisateur !')
+    })
   }
 }
