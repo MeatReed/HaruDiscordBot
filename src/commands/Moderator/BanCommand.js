@@ -1,14 +1,14 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class NameClassCommand extends BaseCommand {
+module.exports = class BanCommand extends BaseCommand {
   constructor() {
     super({
-      name: '',
+      name: 'ban',
       description: '',
-      category: '',
+      category: 'Modération',
       usage: '',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: [],
       userPermissions: [],
@@ -17,6 +17,7 @@ module.exports = class NameClassCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
-    message.channel.send('Test command works')
+    const user = client.fetchUser(args.join(' '), message)
+    console.log(user)
   }
 }

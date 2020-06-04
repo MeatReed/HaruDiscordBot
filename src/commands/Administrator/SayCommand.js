@@ -10,12 +10,13 @@ module.exports = class SayCommand extends BaseCommand {
       enabled: true,
       guildOnly: true,
       nsfw: false,
-      aliases: []
+      aliases: [],
+      userPermissions: [],
+      clientPermissions: []
     })
   }
 
   async run(client, message, args) {
-    console.log(client)
     const msg = args.join(' ')
     if(!msg) {
       message.reply('vous avez oublié d\'insérer le message que vous voulez envoyer avec Haru !')

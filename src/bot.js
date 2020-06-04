@@ -5,7 +5,7 @@ const client = new Client();
 
 (async () => {
   require("./utils/functions")(client)
-  client.mysql = await require("./utils/mysql").init()
+  client.mysql = require("./utils/mysql").init()
   client.commands = new Map();
   client.events = new Map();
   client.prefix = process.env.DISCORD_BOT_PREFIX;

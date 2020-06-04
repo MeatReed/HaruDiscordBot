@@ -9,6 +9,8 @@ module.exports = class BaseCommand {
       guildOnly = false,
       nsfw = false,
       aliases = new Array(),
+      userPermissions = new Array(),
+      clientPermissions = new Array()
     }
   )
   {
@@ -20,5 +22,7 @@ module.exports = class BaseCommand {
     this.guildOnly = guildOnly;
     this.nsfw = nsfw;
     this.aliases = aliases;
+    this.userPermissions = userPermissions
+    this.clientPermissions = clientPermissions
   }
 }
