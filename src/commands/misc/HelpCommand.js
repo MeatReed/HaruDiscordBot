@@ -40,12 +40,10 @@ module.exports = class HelpCommand extends BaseCommand {
 
         const help = {}
 
-        let text = ''
-
         client.commands.forEach((command) => {
           const cat = command.category
 
-          if (cat === 'Créateur') return
+          if (cat === 'dev') return
 
           if (!help.hasOwnProperty(cat)) help[cat] = []
 
@@ -77,7 +75,6 @@ module.exports = class HelpCommand extends BaseCommand {
 
         if (client.commands.has(command)) {
           command = client.commands.get(command)
-          console.log(command)
           const EmbedHelp = new Discord.MessageEmbed()
             .setColor('0xb1072e')
             .setTitle('Utilisation de la commande ' + command.name)

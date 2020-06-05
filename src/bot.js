@@ -3,10 +3,13 @@ const { Client } = require('discord.js')
 const { registerCommands, registerEvents } = require('./utils/registry')
 const client = new Client()
 
+// Init amethyste-api
+
 ;(async () => {
   require('./utils/functions')(client)
   require('./utils/messages')(client)
   client.mysql = require('./utils/mysql').init()
+  client.ameApi = require('./utils/amethysteApi').init()
   client.commands = new Map()
   client.events = new Map()
   client.prefix = process.env.DISCORD_BOT_PREFIX
