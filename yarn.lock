@@ -847,6 +847,16 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment-duration-format@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.3.2.tgz#5fa2b19b941b8d277122ff3f87a12895ec0d6212"
+  integrity sha512-cBMXjSW+fjOb4tyaVHuaVE/A5TqkukDWiOfxxAjY+PEqmmBQlLwn+8OzwPiG3brouXKY5Un4pBjAeB6UToXHaQ==
+
+moment-fr@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/moment-fr/-/moment-fr-0.0.1.tgz#3483b084c3ceb1b553f3c63c0f75fa2e90534df3"
+  integrity sha1-NIOwhMPOsbVT88Y8D3X6LpBTTfM=
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
