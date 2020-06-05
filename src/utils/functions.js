@@ -1,3 +1,4 @@
+require('dotenv').config()
 const sm = require('string-similarity')
 
 module.exports = (client) => {
@@ -66,5 +67,9 @@ module.exports = (client) => {
     } else {
       return message.guild.members.cache.get(user)
     }
+  }
+
+  client.getOwner = () => {
+    return client.users.cache.get(process.env.DISCORD_BOT_OWNER)
   }
 }
