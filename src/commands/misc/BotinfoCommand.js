@@ -1,10 +1,10 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 const os = require('os')
 const status = {
-  online: 'En ligne',
-  idle: 'Idle',
-  dnd: 'Ne pas déranger',
-  offline: 'Offline/Invisible',
+  online: '<:online:686651497617948721> En ligne',
+  idle: '<:idle:686652885593096305> Idle',
+  dnd: '<:dnd:686650899329974336> Ne pas déranger',
+  offline: '<:offline:686652886150676598> Offline/Invisible',
 }
 const moment = require('moment-fr')
 require('moment-duration-format')
@@ -77,10 +77,6 @@ module.exports = class BotinfoCommand extends BaseCommand {
           },
           fields: [
             {
-              name: 'Uptime',
-              value: `${uptime}`,
-            },
-            {
               name: 'Nom du bot',
               value: `${client.user.username}`,
               inline: true,
@@ -127,6 +123,10 @@ module.exports = class BotinfoCommand extends BaseCommand {
             {
               name: 'Paypal',
               value: 'https://paypal.me/MeatRed',
+            },
+            {
+              name: 'Uptime',
+              value: `${uptime}`,
             },
             {
               name: 'CPU',
