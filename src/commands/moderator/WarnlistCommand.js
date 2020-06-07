@@ -11,7 +11,7 @@ module.exports = class WarnlistCommand extends BaseCommand {
       enabled: true,
       guildOnly: true,
       nsfw: false,
-      aliases: ['warns'],
+      aliases: ['warns', 'warnls'],
       userPermissions: [],
       clientPermissions: [],
     })
@@ -31,14 +31,17 @@ module.exports = class WarnlistCommand extends BaseCommand {
             (page, pages) => `Page ${page} / ${pages}`
           )
           .formatField(
-            `# - Warnlist`,
-            (el) =>
-              `\`${user.tag}(${user.id})\`\nRaison : ${
+            `# - Warnlist \`${user.tag}(${user.id})\``,
+            (el, i) =>
+              `${i} - Raison : ${
                 el.reason ? el.reason : 'Aucune raison spécifié.'
-              } | Averti par \`${client.fetchUser(el.by, message).user.tag}\`\n`
+              }\nAverti par \`${client.fetchUser(el.by, message).user.tag}\`\n`
           )
         FieldsEmbed.embed
           .setColor(0xb1072e)
+          .setDescription(
+            '**Si vous voulez supprimer un warn vous devez faire la commande\n`h!warnremove [ID du warn] [utilisateur]`**'
+          )
           .setFooter(
             'Demandée par ' + message.author.tag,
             message.author.avatarURL()
@@ -48,7 +51,7 @@ module.exports = class WarnlistCommand extends BaseCommand {
         message.channel.send(`\`${user.tag}\` ne possède aucun avertissement.`)
       }
     } else {
-      client.ErrorEmbed(message, 'Utilisateur introuvable')
+      client.ErrorEmbed(message, 'Utilisateur introuvable !')
     }
   }
 }

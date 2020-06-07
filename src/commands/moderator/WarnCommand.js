@@ -10,7 +10,7 @@ module.exports = class WarnCommand extends BaseCommand {
       enabled: true,
       guildOnly: true,
       nsfw: false,
-      aliases: ['setwarn'],
+      aliases: ['setwarn', 'addwarn'],
       userPermissions: [],
       clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
     })
@@ -28,6 +28,9 @@ module.exports = class WarnCommand extends BaseCommand {
       return
     } else if (message.author.id === user.id) {
       client.ErrorEmbed(message, 'Vous ne pouvez pas vous avertir !')
+      return
+    } else if (user.bot === true) {
+      client.ErrorEmbed(message, 'Vous ne pouvez pas avertir un bot !')
       return
     }
     if (!reason) {
