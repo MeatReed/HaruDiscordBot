@@ -32,8 +32,7 @@ module.exports = class WarnCommand extends BaseCommand {
     } else if (user.bot === true) {
       client.ErrorEmbed(message, 'Vous ne pouvez pas avertir un bot !')
       return
-    }
-    if (!reason) {
+    } else if (!reason) {
       reason = 'Aucune raison spécifié.'
     }
     await client.setWarn(message.guild.id, user.id, message.author.id, reason)

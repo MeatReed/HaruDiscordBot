@@ -19,39 +19,36 @@ module.exports = class WarnlistCommand extends BaseCommand {
 
   async run(client, message, args) {
     const user = client.fetchUser(args.join(' '), message)
-    if (user) {
-      const warns = await client.userWarnsList(message.guild.id, user.id)
-      if (warns[0]) {
-        const FieldsEmbed = new Pagination.FieldsEmbed()
-          .setArray(warns)
-          .setChannel(message.channel)
-          .setElementsPerPage(5)
-          .setPageIndicator(
-            'footer',
-            (page, pages) => `Page ${page} / ${pages}`
-          )
-          .formatField(
-            `# - Warnlist \`${user.tag}(${user.id})\``,
-            (el, i) =>
-              `${i} - Raison : ${
-                el.reason ? el.reason : 'Aucune raison spécifié.'
-              }\nAverti par \`${client.fetchUser(el.by, message).user.tag}\`\n`
-          )
-        FieldsEmbed.embed
-          .setColor(0xb1072e)
-          .setDescription(
-            '**Si vous voulez supprimer un warn vous devez faire la commande\n`h!warnremove [ID du warn | all] [utilisateur]`**'
-          )
-          .setFooter(
-            'Demandée par ' + message.author.tag,
-            message.author.avatarURL()
-          )
-        FieldsEmbed.build()
-      } else {
-        message.channel.send(`\`${user.tag}\` ne possède aucun avertissement.`)
-      }
-    } else {
+    if (!user) {
       client.ErrorEmbed(message, 'Utilisateur introuvable !')
+      return
     }
+    const warns = await client.userWarnsList(message.guild.id, user.id)
+    if (!warns[0]) {
+      message.channel.send(`\`${user.tag}\` ne possède aucun avertissement.`)
+      return
+    }
+    const FieldsEmbed = new Pagination.FieldsEmbed()
+      .setArray(warns)
+      .setChannel(message.channel)
+      .setElementsPerPage(5)
+      .setPageIndicator('footer', (page, pages) => `Page ${page} / ${pages}`)
+      .formatField(
+        `# - Warnlist \`${user.tag}(${user.id})\``,
+        (el, i) =>
+          `${i} - Raison : ${
+            el.reason ? el.reason : 'Aucune raison spécifié.'
+          }\nAverti par \`${client.fetchUser(el.by, message).user.tag}\`\n`
+      )
+    FieldsEmbed.embed
+      .setColor(0xb1072e)
+      .setDescription(
+        '**Si vous voulez supprimer un warn vous devez faire la commande\n`h!warnremove [ID du warn | all] [utilisateur]`**'
+      )
+      .setFooter(
+        'Demandée par ' + message.author.tag,
+        message.author.avatarURL()
+      )
+    FieldsEmbed.build()
   }
 }
