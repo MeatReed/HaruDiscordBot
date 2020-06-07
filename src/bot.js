@@ -28,6 +28,7 @@ const nodes = [
     })
   }, 30000)
   client.music = require('./utils/player')
+  require('./utils/warnFunctions')(client)
   require('./utils/functions')(client)
   require('./utils/messages')(client)
   client.mysql = require('./utils/mysql').init()

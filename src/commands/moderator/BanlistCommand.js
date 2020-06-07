@@ -12,8 +12,8 @@ module.exports = class BanlistCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
-      clientPermissions: [],
+      userPermissions: ['BAN_MEMBERS'],
+      clientPermissions: ['BAN_MEMBERS'],
     })
   }
 

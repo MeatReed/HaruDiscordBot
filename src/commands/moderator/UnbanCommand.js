@@ -7,19 +7,18 @@ module.exports = class UnbanCommand extends BaseCommand {
       name: 'unban',
       description: '',
       category: 'Modération',
-      usage: 'unban',
+      usage: 'unban {ID utilisateur}',
       enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
-      clientPermissions: [],
+      userPermissions: ['BAN_MEMBERS'],
+      clientPermissions: ['BAN_MEMBERS'],
     })
   }
 
   async run(client, message, args) {
     const userID = args[0]
-    console.log(userID)
     if (userID) {
       message.guild.members
         .unban(userID)
