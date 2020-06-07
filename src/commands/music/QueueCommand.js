@@ -1,5 +1,7 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 const moment = require('moment')
+const Discord = require('discord.js')
+const Pagination = require('discord-paginationembed')
 
 module.exports = class QueueCommand extends BaseCommand {
   constructor() {
@@ -37,35 +39,52 @@ module.exports = class QueueCommand extends BaseCommand {
       )
       return
     }
-    let queue = client.music.getCurrentQueue(
+    const queue = client.music.getCurrentQueue(
       client.queue.QUEUES,
       message.guild.id
     )
-    let text = ''
-    for (let i = 1; i < queue.length; i++) {
-      let duration = moment.duration({
-        ms: queue[i].info.duration,
-      })
-      text += `${i} - [${queue[i].info.title}](${
-        queue[i].info.url
-      })\nDurée : ${duration.minutes()}:${duration.seconds()} | Demandée par : ${
-        queue[i].author
-      }\n\n`
+    const nowplaying = queue[0]
+    const songs = queue.slice(1)
+    if (songs[0]) {
+      const FieldsEmbed = new Pagination.FieldsEmbed()
+        .setArray(songs)
+        .setChannel(message.channel)
+        .setElementsPerPage(5)
+        .setPageIndicator('footer', (page, pages) => `Page ${page} / ${pages}`)
+        .formatField(
+          `# - Queue`,
+          (el) =>
+            `**[${el.info.title}](${el.info.url})**\nDurée : ${moment
+              .duration({
+                ms: el.info.duration,
+              })
+              .minutes()}:${moment
+              .duration({
+                ms: el.info.duration,
+              })
+              .seconds()} | Demandée par : ${el.author}\n\n`
+        )
+      FieldsEmbed.embed
+        .setColor(16711717)
+        .setDescription(
+          `**Joue: [${nowplaying.info.title}](${nowplaying.info.url})**`
+        )
+        .setFooter(
+          'Demandée par ' + message.author.tag,
+          message.author.avatarURL()
+        )
+      FieldsEmbed.build()
+    } else {
+      const Embed = new Discord.MessageEmbed()
+        .setColor(16711717)
+        .setDescription(
+          `**Joue: [${nowplaying.info.title}](${nowplaying.info.url})**`
+        )
+        .setFooter(
+          'Demandée par ' + message.author.tag,
+          message.author.avatarURL()
+        )
+      message.channel.send(Embed)
     }
-    text += `\n\nJoue: [${queue[0].info.title}](${queue[0].info.url})`
-    if (text.length > 2048) {
-      text = text.substr(0, 2048)
-      text = text + '...'
-    }
-    message.channel.send({
-      embed: {
-        description: text,
-        color: 16711717,
-        footer: {
-          icon_url: message.author.avatarURL(),
-          text: 'Demandée par ' + message.author.tag,
-        },
-      },
-    })
   }
 }
