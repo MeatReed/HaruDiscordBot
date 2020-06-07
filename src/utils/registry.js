@@ -15,7 +15,7 @@ async function registerCommands(client, dir = '') {
         const cmd = new Command()
         client.commands.set(cmd.name, cmd)
         cmd.aliases.forEach((alias) => {
-          client.commands.set(alias, cmd)
+          client.aliases.set(alias, cmd)
         })
       }
     }

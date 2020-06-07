@@ -35,6 +35,7 @@ const nodes = [
   client.ameApi = require('./utils/amethysteApi').init()
   client.queue = queueFile
   client.commands = new Map()
+  client.aliases = new Map()
   client.events = new Map()
   client.prefix = process.env.DISCORD_BOT_PREFIX
   await registerCommands(client, '../commands')

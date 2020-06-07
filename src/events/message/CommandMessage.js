@@ -12,7 +12,8 @@ module.exports = class CommandMessageEvent extends BaseEvent {
         .slice(client.prefix.length)
         .trim()
         .split(/\s+/)
-      const command = client.commands.get(cmdName)
+      const command =
+        client.commands.get(cmdName) || client.aliases.get(cmdName)
       if (command) {
         if (command.enabled === false) {
           client.ErrorEmbed(
