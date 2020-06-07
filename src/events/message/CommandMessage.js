@@ -39,16 +39,21 @@ module.exports = class CommandMessageEvent extends BaseEvent {
         } else if (!message.guild.me.hasPermission(command.clientPermissions)) {
           client.ErrorEmbed(
             message,
-            `pour effectuer cette commande, Haru doit obtenir la/les permission(s) : \`${command.clientPermissions.join(
+            `Pour effectuer cette commande, Haru doit obtenir la/les permission(s) : \`${command.clientPermissions.join(
               ' '
             )}\``
           )
         } else if (!message.member.hasPermission(command.userPermissions)) {
           client.ErrorEmbed(
             message,
-            `pour effectuer cette commande, vous devez obtenir la/les permission(s) : \`${command.userPermissions.join(
+            `Pour effectuer cette commande, vous devez obtenir la/les permission(s) : \`${command.userPermissions.join(
               ' '
             )}\``
+          )
+        } else if (!client.manager && command.category === '🎸 Musique') {
+          client.ErrorEmbed(
+            message,
+            `Le serveur Lavalink n'a pas encore démarré, veuillez patienter 30 secondes puis réessayer.`
           )
         } else {
           command.run(client, message, cmdArgs, command)
