@@ -40,7 +40,7 @@ module.exports = class WarnlistCommand extends BaseCommand {
         FieldsEmbed.embed
           .setColor(0xb1072e)
           .setDescription(
-            '**Si vous voulez supprimer un warn vous devez faire la commande\n`h!warnremove [ID du warn] [utilisateur]`**'
+            '**Si vous voulez supprimer un warn vous devez faire la commande\n`h!warnremove [ID du warn | all] [utilisateur]`**'
           )
           .setFooter(
             'Demandée par ' + message.author.tag,

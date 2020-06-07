@@ -7,7 +7,7 @@ module.exports = class WarnremoveCommand extends BaseCommand {
       name: 'warnremove',
       description: '',
       category: 'Modération',
-      usage: 'warnremove [ID du warn] [utilisateur]',
+      usage: 'warnremove [ID du warn | all] [utilisateur]',
       enabled: true,
       guildOnly: true,
       nsfw: false,
@@ -35,17 +35,32 @@ module.exports = class WarnremoveCommand extends BaseCommand {
       client.ErrorEmbed(message, 'Utilisateur introuvable !')
       return
     }
-    if (await client.checkWarn(warnID, message.guild.id, user.id)) {
-      await client.delWarn(warnID, message.guild.id, user.id)
-      client.SuccesEmbed(
-        message,
-        `L'avertissement numéro \`${warnID}\` a bien été supprimé !`
-      )
+    if (warnID === 'all') {
+      if (await client.checkWarn(0, message.guild.id, user.id)) {
+        await client.clearWarns(message.guild.id, user.id)
+        client.SuccesEmbed(
+          message,
+          `Tout les avertissement de \`${user.tag}\` ont bien été supprimés !`
+        )
+      } else {
+        client.ErrorEmbed(
+          message,
+          `\`${user.tag}\` ne possède aucun avertissement.`
+        )
+      }
     } else {
-      client.ErrorEmbed(
-        message,
-        "L'ID du warn mis est incorrect ! Faites la commande `h!warnlist {utilisateur}` pour connaître l'ID."
-      )
+      if (await client.checkWarn(warnID, message.guild.id, user.id)) {
+        await client.delWarn(warnID, message.guild.id, user.id)
+        client.SuccesEmbed(
+          message,
+          `L'avertissement numéro \`${warnID}\` a bien été supprimé !`
+        )
+      } else {
+        client.ErrorEmbed(
+          message,
+          "L'ID du warn mis est incorrect ! Faites la commande `h!warnlist {utilisateur}` pour connaître l'ID."
+        )
+      }
     }
   }
 }

@@ -39,6 +39,16 @@ module.exports = (client) => {
       console.log('Une erreur est survenue : ' + error)
     }
   }
+  client.clearWarns = async (guild_id, user_id) => {
+    try {
+      await client.mysql.promiseRequest.query(
+        'DELETE FROM warns WHERE guild_id = ? AND user_id = ?',
+        [guild_id, user_id]
+      )
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
   client.checkWarn = async (number, guild_id, user_id) => {
     try {
       const warns = await client.mysql.promiseRequest.query(

@@ -16,7 +16,7 @@ module.exports = class ClearCommand extends BaseCommand {
     })
   }
 
-  run(client, message, args) {
+  async run(client, message, args) {
     if (!args[0]) {
       client.ErrorEmbed(message, 'Aucun nombre spécifié.')
       return
@@ -29,6 +29,7 @@ module.exports = class ClearCommand extends BaseCommand {
       )
       return
     }
+    await message.delete()
     message.channel
       .bulkDelete(amount)
       .then((messages) => {
@@ -40,6 +41,5 @@ module.exports = class ClearCommand extends BaseCommand {
           'Une erreur est survenue : \n```JS\n' + error.message + '```'
         )
       })
-    message.delete()
   }
 }
