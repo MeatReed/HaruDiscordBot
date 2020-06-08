@@ -137,6 +137,7 @@ module.exports.play = async (client, message, guild) => {
 }
 
 module.exports.addToQueue = async (client, message, track) => {
+  console.log(track)
   try {
     let queue = await this.getCurrentQueue(
       client.queue.QUEUES,
@@ -229,7 +230,7 @@ module.exports.addToQueue = async (client, message, track) => {
               time: 20000,
             })
             collector.on('collect', async (msgCollected) => {
-              let choice = msgCollected.content.split(' ')[0]
+              const choice = msgCollected.content.split(' ')[0]
               if (choice.toLowerCase() === 'annuler') {
                 collector.stop('STOPPED')
                 return
@@ -242,7 +243,7 @@ module.exports.addToQueue = async (client, message, track) => {
                 client.ErrorEmbed(message, 'Choix invalide !')
                 return
               }
-              let song = songs[choice - 1]
+              const song = songs[choice - 1]
               collector.stop('PLAY')
               m.delete()
               msgCollected.delete()
@@ -262,7 +263,7 @@ module.exports.addToQueue = async (client, message, track) => {
                 },
               })
               if (queue.length > 1) {
-                let duration = moment.duration({
+                const duration = moment.duration({
                   ms: song.info.length,
                 })
                 return message.channel.send({
@@ -327,7 +328,11 @@ module.exports.addToQueue = async (client, message, track) => {
             }
           })
       } else {
-        let song = songs[0]
+        const song = songs[0]
+        if (!song) {
+          client.ErrorEmbed(message, 'Aucun résultat trouvé.')
+          return
+        }
         queue.push({
           track: song.track,
           author: message.author.tag,
@@ -344,7 +349,7 @@ module.exports.addToQueue = async (client, message, track) => {
           },
         })
         if (queue.length > 1) {
-          let duration = moment.duration({
+          const duration = moment.duration({
             ms: song.info.duration,
           })
           message.channel.send({
@@ -387,6 +392,7 @@ module.exports.addToQueue = async (client, message, track) => {
     }
   } catch (error) {
     if (error) {
+      console.log(error)
       client.ErrorEmbed(
         message,
         'Une erreur est survenue : \n```JS\n' + error.message + '```'
