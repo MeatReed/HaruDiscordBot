@@ -11,8 +11,13 @@ module.exports = class WarnCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: ['setwarn', 'addwarn'],
-      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
-      clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
+      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
+      clientPermissions: [
+        'BAN_MEMBERS',
+        'KICK_MEMBERS',
+        'MANAGE_ROLES',
+        'MANAGE_CHANNELS',
+      ],
     })
   }
 
@@ -29,13 +34,16 @@ module.exports = class WarnCommand extends BaseCommand {
     } else if (message.author.id === user.id) {
       client.ErrorEmbed(message, 'Vous ne pouvez pas vous avertir !')
       return
-    } else if (user.bot === true) {
-      client.ErrorEmbed(message, 'Vous ne pouvez pas avertir un bot !')
-      return
     } else if (!reason) {
       reason = 'Aucune raison spécifié.'
     }
-    await client.setWarn(message.guild.id, user.id, message.author.id, reason)
+    await client.setWarn(
+      message,
+      message.guild.id,
+      user.id,
+      message.author.id,
+      reason
+    )
     client.SuccesEmbed(
       message,
       `L'utilisateur <@${user.id}> a été averti. Raison : ${reason}`

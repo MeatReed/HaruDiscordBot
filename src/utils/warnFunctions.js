@@ -14,7 +14,7 @@ module.exports = (client) => {
     }
   }
 
-  client.setWarn = async (guild_id, user_id, by, reason) => {
+  client.setWarn = async (message, guild_id, user_id, by, reason) => {
     try {
       await client.mysql.promiseRequest.query('INSERT INTO warns SET ?', {
         guild_id,
@@ -23,6 +23,85 @@ module.exports = (client) => {
         reason,
         created_at: new Date(),
       })
+      const warns = await client.userWarnsList(guild_id, user_id)
+      const sanctionsDB = await client.getSanction(guild_id, warns.length)
+      if (sanctionsDB[0]) {
+        for (const sanctionIndex in sanctionsDB) {
+          if (sanctionsDB[sanctionIndex].sanction === 'mute') {
+            const member = message.guild.members.cache.get(user_id)
+            let muteRole = message.guild.roles.cache.find(
+              (r) => r.name === 'muted'
+            )
+            if (!muteRole) {
+              muteRole = await message.guild.roles.create({
+                data: {
+                  name: 'muted',
+                  color: '#000',
+                  permissions: [],
+                },
+              })
+              message.guild.channels.cache.forEach(async (channel) => {
+                await channel.updateOverwrite(muteRole, {
+                  SEND_MESSAGES: false,
+                  ADD_REACTIONS: false,
+                  CONNECT: false,
+                })
+              })
+            }
+            await member.roles
+              .add(muteRole.id)
+              .then((usr) => {
+                client.SuccesEmbed(
+                  message,
+                  `L'utilisateur <@${user_id}> a été réduit au silence.`
+                )
+              })
+              .catch((error) => {
+                client.ErrorEmbed(
+                  message,
+                  `Impossible de mettre le rôle \`muted\` à <@${user_id}>`
+                )
+              })
+          } else if (sanctionsDB[sanctionIndex].sanction === 'kick') {
+            message.guild.members.cache
+              .get(user_id)
+              .kick({
+                reason: 'Expulser automatiquement.',
+              })
+              .then((usr) => {
+                client.SuccesEmbed(
+                  message,
+                  `L'utilisateur <@${user_id}> a été expulsé.`
+                )
+              })
+              .catch((error) => {
+                client.ErrorEmbed(
+                  message,
+                  'Impossible de expulser cet utilisateur !'
+                )
+              })
+          } else if (sanctionsDB[sanctionIndex].sanction === 'ban') {
+            message.guild.members
+              .ban(user_id, {
+                reason: 'Expulser automatiquement.',
+              })
+              .then((usr) => {
+                client.SuccesEmbed(
+                  message,
+                  `L'utilisateur <@${user_id}> a été banni.`
+                )
+              })
+              .catch((error) => {
+                client.ErrorEmbed(
+                  message,
+                  'Impossible de bannir cet utilisateur !'
+                )
+              })
+          }
+        }
+      } else {
+        console.log('no sanction')
+      }
     } catch (error) {
       console.log('Une erreur est survenue : ' + error)
     }
@@ -115,7 +194,7 @@ module.exports = (client) => {
         [guild_id, warnAmount]
       )
       if (sanctionDB[0][0]) {
-        return sanctionDB[0][0]
+        return sanctionDB[0]
       } else {
         return false
       }

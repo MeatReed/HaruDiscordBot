@@ -11,8 +11,13 @@ module.exports = class WarnremoveCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: ['warnrm'],
-      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
-      clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
+      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
+      clientPermissions: [
+        'BAN_MEMBERS',
+        'KICK_MEMBERS',
+        'MANAGE_ROLES',
+        'MANAGE_CHANNELS',
+      ],
     })
   }
 

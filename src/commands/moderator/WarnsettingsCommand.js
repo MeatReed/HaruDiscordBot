@@ -12,8 +12,13 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
-      clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
+      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS'],
+      clientPermissions: [
+        'BAN_MEMBERS',
+        'KICK_MEMBERS',
+        'MANAGE_ROLES',
+        'MANAGE_CHANNELS',
+      ],
     })
   }
 
@@ -222,7 +227,7 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
           .formatField(
             `# - Sanctionlist`,
             (el, i) =>
-              `${i} - \`${el.warnAmount}\` avertissement(s)\nSanction \`${el.sanction}\`\n`
+              `\`${el.warnAmount}\` avertissement(s)\nSanction \`${el.sanction}\`\n`
           )
         FieldsEmbed.embed
           .setColor(0xb1072e)
