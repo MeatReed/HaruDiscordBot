@@ -106,6 +106,7 @@ module.exports = (client) => {
       console.log('Une erreur est survenue : ' + error)
     }
   }
+
   client.delWarn = async (number, guild_id, user_id) => {
     try {
       const warns = await client.mysql.promiseRequest.query(
@@ -129,6 +130,7 @@ module.exports = (client) => {
       console.log('Une erreur est survenue : ' + error)
     }
   }
+
   client.checkWarn = async (number, guild_id, user_id) => {
     try {
       const warns = await client.mysql.promiseRequest.query(

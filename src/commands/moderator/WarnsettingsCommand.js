@@ -232,7 +232,7 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
         FieldsEmbed.embed
           .setColor(0xb1072e)
           .setDescription(
-            '**Si vous voulez supprimer une sanction vous devez faire la commande\n`h!warnsettings [mute/kick/ban]`**'
+            '**Si vous voulez supprimer une sanction vous devez faire la commande\n`h!warnsettings remove [mute/kick/ban]`**'
           )
           .setFooter(
             'Demandée par ' + message.author.tag,
