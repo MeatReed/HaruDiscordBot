@@ -169,7 +169,7 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
         } else {
           client.ErrorEmbed(
             message,
-            `La sanction \`${sanction}\` n'a pas été définie !`
+            `La sanction \`${sanction}\` n'est pas définie !`
           )
         }
       } else if (sanction === 'kick') {
@@ -186,7 +186,7 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
         } else {
           client.ErrorEmbed(
             message,
-            `La sanction \`${sanction}\` n'a pas été définie !`
+            `La sanction \`${sanction}\` n'est pas définie !`
           )
         }
       } else if (sanction === 'ban') {
@@ -203,7 +203,7 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
         } else {
           client.ErrorEmbed(
             message,
-            `La sanction \`${sanction}\` n'a pas été définie !`
+            `La sanction \`${sanction}\` n'est pas définie !`
           )
         }
       } else {
