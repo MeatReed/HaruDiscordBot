@@ -1,5 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 const Pagination = require('discord-paginationembed')
+const moment = require('moment-fr')
 
 module.exports = class WarnlistCommand extends BaseCommand {
   constructor() {
@@ -36,9 +37,11 @@ module.exports = class WarnlistCommand extends BaseCommand {
       .formatField(
         `# - Warnlist \`${user.tag}(${user.id})\``,
         (el, i) =>
-          `${i} - Raison : ${
+          `${i} - ${
             el.reason ? el.reason : 'Aucune raison spécifié.'
-          }\nAverti par \`${client.fetchUser(el.by, message).user.tag}\`\n`
+          }\nAverti par \`${
+            client.fetchUser(el.by, message).user.tag
+          }\` le ${moment(el.created_at).format('LLL')}\n`
       )
     FieldsEmbed.embed
       .setColor(0xb1072e)

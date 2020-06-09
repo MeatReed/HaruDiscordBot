@@ -21,6 +21,7 @@ module.exports = (client) => {
         user_id,
         by,
         reason,
+        created_at: new Date(),
       })
     } catch (error) {
       console.log('Une erreur est survenue : ' + error)
@@ -57,6 +58,80 @@ module.exports = (client) => {
       )
       if (warns[0][number]) {
         return true
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
+  client.setSanction = async (guild_id, warnAmount, sanction) => {
+    try {
+      await client.mysql.promiseRequest.query(
+        'INSERT INTO warnsettings SET ?',
+        {
+          guild_id,
+          warnAmount,
+          sanction,
+        }
+      )
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
+  client.delSanction = async (guild_id, sanction) => {
+    try {
+      await client.mysql.promiseRequest.query(
+        'DELETE FROM warnsettings WHERE guild_id = ? and sanction = ?',
+        [guild_id, sanction]
+      )
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
+  client.getSanctions = async (guild_id) => {
+    try {
+      const sanctions = await client.mysql.promiseRequest.query(
+        'SELECT * FROM warnsettings WHERE guild_id = ?',
+        [guild_id]
+      )
+      if (sanctions[0][0]) {
+        return sanctions[0]
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
+  client.getSanction = async (guild_id, warnAmount) => {
+    try {
+      const sanctionDB = await client.mysql.promiseRequest.query(
+        'SELECT * FROM warnsettings WHERE guild_id = ? AND warnAmount = ?',
+        [guild_id, warnAmount]
+      )
+      if (sanctionDB[0][0]) {
+        return sanctionDB[0][0]
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
+  client.getSanctionWithSanction = async (guild_id, sanction) => {
+    try {
+      const sanctionDB = await client.mysql.promiseRequest.query(
+        'SELECT * FROM warnsettings WHERE guild_id = ? AND sanction = ?',
+        [guild_id, sanction]
+      )
+      if (sanctionDB[0][0]) {
+        return sanctionDB[0][0]
       } else {
         return false
       }

@@ -63,7 +63,7 @@ module.exports = class BotinfoCommand extends BaseCommand {
             `***${client.prefix}report {raison}***` +
             ' ou envoyez moi un message privé `' +
             ownerUser.tag +
-            '`\n\nVous pouvez soutenir le bot en votant =>[ici](https://discordbots.org/bot/450352584302002186)<=.\n------------------------------------------------------------------------------',
+            '`\n------------------------------------------------------------------------------',
           color: 0xb1072e,
           footer: {
             icon_url: message.author.avatarURL(),
