@@ -12,7 +12,7 @@ module.exports = class CrushCommand extends BaseCommand {
       nsfw: false,
       aliases: [],
       userPermissions: [],
-      clientPermissions: [],
+      clientPermissions: ['ATTACH_FILES'],
     })
   }
 

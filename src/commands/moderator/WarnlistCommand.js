@@ -13,8 +13,8 @@ module.exports = class WarnlistCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: ['warns', 'warnls'],
-      userPermissions: [],
-      clientPermissions: [],
+      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
+      clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
     })
   }
 

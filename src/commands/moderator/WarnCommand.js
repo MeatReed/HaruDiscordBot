@@ -11,7 +11,7 @@ module.exports = class WarnCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: ['setwarn', 'addwarn'],
-      userPermissions: [],
+      userPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
       clientPermissions: ['BAN_MEMBERS', 'KICK_MEMBERS', 'MANAGE_ROLES'],
     })
   }
