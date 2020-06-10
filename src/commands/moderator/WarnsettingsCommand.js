@@ -61,6 +61,11 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
                 '**Description:** Permet de supprimer une sanction.\n**Exemple:** h!warnsettings remove kick',
             },
             {
+              name: 'h!warnsettings dm [on/off]',
+              value:
+                "**Description:** Permet d'activer ou de désactiver l'envoie de message privé quand un utilisateur est averti.\n**Exemple:** h!warnsettings dm on",
+            },
+            {
               name: 'h!warnsettings sanctionlist',
               value:
                 "**Description:** Permet d'afficher la liste des sanctions configurées sur le serveur.\n**Exemple:** h!warnsettings sanctionlist",
