@@ -33,7 +33,13 @@ module.exports = class ClearCommand extends BaseCommand {
     message.channel
       .bulkDelete(amount)
       .then((messages) => {
-        client.SuccesEmbed(message, `\`${messages.size}\` messages supprimé.`)
+        client
+          .SuccesEmbed(message, `\`${messages.size}\` messages supprimé.`)
+          .then((succesmsg) => {
+            setTimeout(function () {
+              succesmsg.delete()
+            }, 5000)
+          })
       })
       .catch((error) => {
         client.ErrorEmbed(
