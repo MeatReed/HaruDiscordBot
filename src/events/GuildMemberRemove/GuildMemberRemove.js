@@ -1,11 +1,22 @@
 // https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberRemove
 const BaseEvent = require('../../utils/structures/BaseEvent')
-module.exports = class GuildMemberRemoveEvent extends BaseEvent {
+module.exports = class LeavemessageEvent extends BaseEvent {
   constructor() {
     super('guildMemberRemove')
   }
 
   async run(client, member) {
-    await client.clearWarns(member.guild.id, member.id)
+    const guildConfig = await client.getGuild(member.guild.id)
+    if (guildConfig.leave === 'on' && guildConfig.channel) {
+      const channel = member.guild.channels.cache.get(guildConfig.channel)
+      if (channel) {
+        channel.send(
+          guildConfig.leave_message
+            .replace('{user}', member)
+            .replace('{username}', member.user.username)
+            .replace('{server}', member.guild)
+        )
+      }
+    }
   }
 }

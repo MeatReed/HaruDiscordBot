@@ -6,6 +6,8 @@ module.exports = (client) => {
     try {
       await client.mysql.promiseRequest.query('INSERT INTO guilds SET ?', {
         guild_id: guild.id,
+        join_message: 'Bienvenue {user} dans le serveur {server} !',
+        leave_message: '{user} a quitté le serveur.',
       })
       console.log(`Nouveau serveur : ${guild.name}(${guild.id})`)
     } catch (error) {
@@ -77,6 +79,45 @@ module.exports = (client) => {
       return fetchedUser
     } else {
       return message.guild.members.cache.get(user)
+    }
+  }
+
+  client.fetchChannel = (search, message) => {
+    if (!message.guild.channels.cache.get(search)) {
+      let channels = []
+      let indexes = []
+
+      message.guild.channels.cache.forEach(function (channel) {
+        channels.push(channel.name)
+        indexes.push(channel.id)
+      })
+
+      const match = sm.findBestMatch(search, channels)
+      const channelname = match.bestMatch.target
+
+      const channel =
+        message.mentions.channels.first() ||
+        message.guild.channels.cache.get(
+          indexes[channels.indexOf(channelname)]
+        ) ||
+        message.channel
+      if (channel.type !== 'text') {
+        client.ErrorEmbed(
+          message,
+          channel.name + " n'est pas un salon textuel !"
+        )
+        return
+      }
+      let fetchedChannel = ''
+      if (!search) {
+        fetchedChannel = message.channel
+      } else {
+        let mention = message.mentions.channels.first()
+        fetchedChannel = mention || channel
+      }
+      return fetchedChannel
+    } else {
+      return message.guild.channels.cache.get(search)
     }
   }
 
