@@ -24,7 +24,7 @@ module.exports = class LeavemessageCommand extends BaseCommand {
         embed: {
           color: 0xb1072e,
           description:
-            "Vous n'avez pas mis le salon pour le message de Bienvenue et de Leave.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
+            "Vous n'avez pas mis le salon pour le message de Bienvenue et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
         },
       })
     } else if (!args[0]) {
@@ -39,7 +39,7 @@ module.exports = class LeavemessageCommand extends BaseCommand {
           embed: {
             color: 0xb1072e,
             description:
-              'Le message de Leave de ce serveur est : **' +
+              "Le message d'Adieu de ce serveur est : **" +
               guildConfig.leave_message +
               '**\nPour le changer, faites `' +
               guildConfig.prefix +
@@ -56,7 +56,7 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       if (guildConfig.leave === 'off') {
         client.ErrorEmbed(
           message,
-          "Le message de Leave déjà désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
+          "Le message d'Adieu déjà désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
         )
         return
       }
@@ -65,7 +65,7 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       })
       client.SuccesEmbed(
         message,
-        'Le message de Leave de ce serveur a été désactivé !'
+        "Le message d'Adieu de ce serveur a été désactivé !"
       )
     } else if (option === 'on') {
       if (guildConfig.leave === 'on') {
@@ -80,13 +80,13 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       })
       client.SuccesEmbed(
         message,
-        'Le message de Leave de ce serveur a été activé !'
+        "Le message d'Adieu de ce serveur a été activé !"
       )
     } else if (option === 'reset') {
       if (guildConfig.leave === 'off') {
         client.ErrorEmbed(
           message,
-          "Le message de Leave est désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
+          "Le message d'Adieu est désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
         )
         return
       }
@@ -95,13 +95,13 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       })
       client.SuccesEmbed(
         message,
-        'Le message de Leave de ce serveur a été réinitialisé !'
+        "Le message d'Adieu de ce serveur a été réinitialisé !"
       )
     } else {
       if (guildConfig.leave === 'off') {
         client.ErrorEmbed(
           message,
-          "Le message de Leave est désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
+          "Le message d'Adieu est désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
         )
         return
       }
@@ -110,9 +110,9 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       })
       message.channel.send({
         embed: {
-          title: 'Message de Leave modifié!',
+          title: "Message d'Adieu modifié!",
           color: 65349,
-          description: `Le message de Leave est maintenant \`${args.join(
+          description: `Le message d'Adieu est maintenant \`${args.join(
             ' '
           )}\``,
         },

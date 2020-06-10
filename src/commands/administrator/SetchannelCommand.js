@@ -24,7 +24,7 @@ module.exports = class SetchannelCommand extends BaseCommand {
           embed: {
             color: 0xb1072e,
             description:
-              "Il n'y a pas de salon pour le message de Bienvenue et de Leave.\nPour mettre le salon, faites `" +
+              "Il n'y a pas de salon pour le message de Bienvenue et d'Adieu.\nPour mettre le salon, faites `" +
               guildConfig.prefix +
               'setchannel {salon}`',
           },
@@ -36,7 +36,7 @@ module.exports = class SetchannelCommand extends BaseCommand {
         embed: {
           color: 0xb1072e,
           description:
-            'Le salon pour le message de Bienvenue et de Leave est : **#' +
+            "Le salon pour le message de Bienvenue et d'Adieu est : **#" +
             dbChannel.name +
             '**\nPour changer le salon, faites `' +
             guildConfig.prefix +
@@ -54,7 +54,7 @@ module.exports = class SetchannelCommand extends BaseCommand {
       })
       client.SuccesEmbed(
         message,
-        'Le salon pour le message de Bienvenue et de Leave a été enlevé avec succès !'
+        "Le salon pour le message de Bienvenue et d'Adieu a été enlevé avec succès !"
       )
       return
     }
@@ -74,7 +74,7 @@ module.exports = class SetchannelCommand extends BaseCommand {
       embed: {
         title: 'Channel modifié!',
         color: 65349,
-        description: `Le salon pour le message de Bienvenue et de Leave est maintenant ${channel}`,
+        description: `Le salon pour le message de Bienvenue et d'Adieu est maintenant ${channel}`,
       },
     })
   }

@@ -24,7 +24,7 @@ module.exports = class JoinmessageCommand extends BaseCommand {
         embed: {
           color: 0xb1072e,
           description:
-            "Vous n'avez pas mis le salon pour le message de Bienvenue et de Leave.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
+            "Vous n'avez pas mis le salon pour le message de Bienvenue et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
         },
       })
     } else if (!args[0]) {
