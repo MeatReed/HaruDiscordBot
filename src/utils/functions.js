@@ -13,6 +13,17 @@ module.exports = (client) => {
     }
   }
 
+  client.updateGuild = async (guild_id, data) => {
+    try {
+      await client.mysql.promiseRequest.query(
+        `UPDATE guilds SET ? WHERE guild_id = '${guild_id}'`,
+        data
+      )
+    } catch (error) {
+      console.log('Une erreur est survenue : ' + error)
+    }
+  }
+
   client.deleteGuild = async (guild) => {
     try {
       await client.mysql.promiseRequest.query('DELETE FROM guilds WHERE ?', {
@@ -24,15 +35,15 @@ module.exports = (client) => {
     }
   }
 
-  client.getGuild = async (guild) => {
+  client.getGuild = async (guild_id) => {
     try {
       const requestGuild = await client.mysql.promiseRequest.query(
         'SELECT * FROM guilds WHERE ?',
         {
-          guild_id: guild.id,
+          guild_id,
         }
       )
-      return requestGuild[0]
+      return requestGuild[0][0]
     } catch (error) {
       console.log('Une erreur est survenue : ' + error)
     }

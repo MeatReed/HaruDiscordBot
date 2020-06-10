@@ -246,6 +246,37 @@ module.exports = class WarnsettingsCommand extends BaseCommand {
         )
         return
       }
+    } else if (option === 'dm') {
+      const choice = args[1]
+      if (!choice) {
+        client.ErrorEmbed(
+          message,
+          "Aucune sanction n'a été définie sur ce serveur."
+        )
+        return
+      } else if (choice === 'on') {
+        client.updateGuild(message.guild.id, {
+          warnDM: 'on',
+        })
+        client.SuccesEmbed(
+          message,
+          `L'option message privé a été activé ! L'utilisateur qui sera averti recevra un message privé.`
+        )
+      } else if (choice === 'off') {
+        client.updateGuild(message.guild.id, {
+          warnDM: 'off',
+        })
+        client.SuccesEmbed(
+          message,
+          `L'option message privé a été désactivé ! L'utilisateur qui sera averti ne recevra pas de message privé.`
+        )
+      } else {
+        client.ErrorEmbed(
+          message,
+          'La valeur que vous avez insérer est incorrecte ! `h!warnsettings dm [on/off]`.'
+        )
+        return
+      }
     } else {
       client.ErrorEmbed(message, 'Aucune option spécifié.')
     }

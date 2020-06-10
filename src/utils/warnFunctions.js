@@ -25,10 +25,16 @@ module.exports = (client) => {
       })
       const warns = await client.userWarnsList(guild_id, user_id)
       const sanctionsDB = await client.getSanction(guild_id, warns.length)
+      const member = message.guild.members.cache.get(user_id)
+      const guildConfig = await client.getGuild(guild_id)
+      if (guildConfig.warnDM === 'on') {
+        member.send(
+          `Vous avez été averti dans le serveur \`${message.guild.name}\`.`
+        )
+      }
       if (sanctionsDB[0]) {
         for (const sanctionIndex in sanctionsDB) {
           if (sanctionsDB[sanctionIndex].sanction === 'mute') {
-            const member = message.guild.members.cache.get(user_id)
             let muteRole = message.guild.roles.cache.find(
               (r) => r.name === 'muted'
             )
