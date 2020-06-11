@@ -10,7 +10,8 @@ module.exports = (client) => {
         join_image_url: 'https://images8.alphacoders.com/108/1081308.png',
         join_image_message: 'Bienvenue {user} dans le serveur {server} !',
         leave_message: '{user} a quitté le serveur.',
-        leave_image_url: 'https://cdn.nekos.life/wallpaper/OgItOQMKqUk.jpg',
+        leave_image_url:
+          'https://images3.alphacoders.com/105/thumb-1920-1058494.jpg',
         leave_image_message: '{user} a quitté le serveur.',
       })
       console.log(`Nouveau serveur : ${guild.name}(${guild.id})`)
