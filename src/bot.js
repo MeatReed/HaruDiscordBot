@@ -31,6 +31,7 @@ const nodes = [
   require('./utils/warnFunctions')(client)
   require('./utils/functions')(client)
   require('./utils/messages')(client)
+  require('./utils/api')(client)
   client.mysql = require('./utils/mysql').init()
   client.ameApi = require('./utils/amethysteApi').init()
   client.queue = queueFile
