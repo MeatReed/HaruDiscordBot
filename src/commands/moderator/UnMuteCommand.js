@@ -1,6 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class UnmuteCommand extends BaseCommand {
+module.exports = class UnMuteCommand extends BaseCommand {
   constructor() {
     super({
       name: 'unmute',

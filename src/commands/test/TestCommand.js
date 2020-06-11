@@ -8,7 +8,7 @@ module.exports = class TestCommand extends BaseCommand {
       category: 'dev',
       usage: 'test',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: ['t'],
       userPermissions: ['BAN_MEMBERS'],

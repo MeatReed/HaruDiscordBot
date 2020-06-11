@@ -1,6 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class SetchannelCommand extends BaseCommand {
+module.exports = class SetChannelCommand extends BaseCommand {
   constructor() {
     super({
       name: 'setchannel',
@@ -11,7 +11,7 @@ module.exports = class SetchannelCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

@@ -9,7 +9,7 @@ module.exports = class HelpCommand extends BaseCommand {
       category: 'Misc',
       usage: 'help {commande}',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: [],
       userPermissions: [],
@@ -21,7 +21,7 @@ module.exports = class HelpCommand extends BaseCommand {
     try {
       const ownerUser = client.getOwner()
       if (!args[0]) {
-        let output = `Utilisez ${client.prefix}help {nom de la commande} pour plus de détails sur une commande\n[] = Obligatoire\n{} = Non obligatoire\n\n`
+        let output = `Utilisez \`${client.prefix}help {nom de la commande}\` pour plus de détails sur une commande\n[] = Obligatoire\n{} = Non obligatoire\n\n`
 
         const Embed = new Discord.MessageEmbed()
           .setColor('0xb1072e')

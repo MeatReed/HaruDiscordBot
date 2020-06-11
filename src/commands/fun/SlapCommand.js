@@ -9,7 +9,7 @@ module.exports = class SlapCommand extends BaseCommand {
       category: 'Fun',
       usage: 'slap {utilisateur}',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: ['tapoter'],
       userPermissions: [],
@@ -34,20 +34,17 @@ module.exports = class SlapCommand extends BaseCommand {
       )
     } else {
       const response = await axios.get('https://nekos.life/api/v2/img/slap')
-      message.channel.send(
-        `<@${message.author.id}> a donné une giffle à <@${user.id}> !`,
-        {
-          embed: {
-            color: 0xb1072e,
-            image: {
-              url: response.data.url,
-            },
-            footer: {
-              text: 'Généré avec https://nekos.life/',
-            },
+      message.channel.send(`${message.author} a donné une giffle à ${user} !`, {
+        embed: {
+          color: 0xb1072e,
+          image: {
+            url: response.data.url,
           },
-        }
-      )
+          footer: {
+            text: 'Généré avec https://nekos.life/',
+          },
+        },
+      })
     }
   }
 }

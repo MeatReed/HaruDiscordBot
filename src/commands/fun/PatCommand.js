@@ -9,7 +9,7 @@ module.exports = class PatCommand extends BaseCommand {
       category: 'Fun',
       usage: 'pat {utilisateur}',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: ['tapoter'],
       userPermissions: [],
@@ -22,7 +22,7 @@ module.exports = class PatCommand extends BaseCommand {
 
     if (user.id === message.author.id) {
       message.channel.send(
-        `<@${message.author.id}> a fait un tapotement à <@${message.author.id}>.. Oh wait !`,
+        `${message.author} a fait un tapotement à ${message.author}.. Oh wait !`,
         {
           embed: {
             color: 0xb1072e,
@@ -35,7 +35,7 @@ module.exports = class PatCommand extends BaseCommand {
     } else {
       const response = await axios.get('https://nekos.life/api/v2/img/pat')
       message.channel.send(
-        `<@${message.author.id}> a fait un tapotement à <@${user.id}> !`,
+        `${message.author} a fait un tapotement à ${user} !`,
         {
           embed: {
             color: 0xb1072e,

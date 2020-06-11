@@ -1,6 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class JoinmessageCommand extends BaseCommand {
+module.exports = class JoinMessageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'join_message',
@@ -11,7 +11,7 @@ module.exports = class JoinmessageCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

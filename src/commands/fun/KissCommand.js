@@ -9,7 +9,7 @@ module.exports = class HugCommand extends BaseCommand {
       category: 'Fun',
       usage: 'kiss {utilisateur}',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: ['bisou', 'baiser'],
       userPermissions: [],
@@ -22,7 +22,7 @@ module.exports = class HugCommand extends BaseCommand {
 
     if (user.id === message.author.id) {
       message.channel.send(
-        `<@${message.author.id}> a fait un baiser à <@${message.author.id}>.. Oh wait !`,
+        `${message.author} a fait un baiser à ${message.author}.. Oh wait !`,
         {
           embed: {
             color: 0xb1072e,
@@ -34,20 +34,17 @@ module.exports = class HugCommand extends BaseCommand {
       )
     } else {
       const response = await axios.get('https://nekos.life/api/v2/img/kiss')
-      message.channel.send(
-        `<@${message.author.id}> a fait un baiser à <@${user.id}> !`,
-        {
-          embed: {
-            color: 0xb1072e,
-            image: {
-              url: response.data.url,
-            },
-            footer: {
-              text: 'Généré avec https://nekos.life/',
-            },
+      message.channel.send(`${message.author} a fait un baiser à ${user} !`, {
+        embed: {
+          color: 0xb1072e,
+          image: {
+            url: response.data.url,
           },
-        }
-      )
+          footer: {
+            text: 'Généré avec https://nekos.life/',
+          },
+        },
+      })
     }
   }
 }

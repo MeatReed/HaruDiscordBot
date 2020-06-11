@@ -4,14 +4,14 @@ module.exports = class JoinCommand extends BaseCommand {
   constructor() {
     super({
       name: 'join',
-      description: '',
+      description: 'Simule un utilisateur qui rejoint le serveur.',
       category: 'Administration',
       usage: 'join',
       enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

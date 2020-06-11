@@ -9,7 +9,7 @@ const status = {
 const moment = require('moment-fr')
 require('moment-duration-format')
 
-module.exports = class BotinfoCommand extends BaseCommand {
+module.exports = class BotInfoCommand extends BaseCommand {
   constructor() {
     super({
       name: 'botinfo',
@@ -17,7 +17,7 @@ module.exports = class BotinfoCommand extends BaseCommand {
       category: 'Misc',
       usage: 'botinfo',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: [],
       userPermissions: [],

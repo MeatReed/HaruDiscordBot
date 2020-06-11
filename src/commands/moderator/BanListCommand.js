@@ -1,7 +1,7 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 const Pagination = require('discord-paginationembed')
 
-module.exports = class BanlistCommand extends BaseCommand {
+module.exports = class BanListCommand extends BaseCommand {
   constructor() {
     super({
       name: 'banlist',

@@ -1,6 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class LeavemessageCommand extends BaseCommand {
+module.exports = class LeaveMessageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'leave_message',
@@ -11,7 +11,7 @@ module.exports = class LeavemessageCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

@@ -2,7 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand')
 const Pagination = require('discord-paginationembed')
 const moment = require('moment-fr')
 
-module.exports = class WarnlistCommand extends BaseCommand {
+module.exports = class WarnListCommand extends BaseCommand {
   constructor() {
     super({
       name: 'warnlist',

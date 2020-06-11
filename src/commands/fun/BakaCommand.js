@@ -9,7 +9,7 @@ module.exports = class BakaCommand extends BaseCommand {
       category: 'Fun',
       usage: 'baka {utilisateur}',
       enabled: true,
-      guildOnly: false,
+      guildOnly: true,
       nsfw: false,
       aliases: ['idiot'],
       userPermissions: [],
@@ -22,7 +22,7 @@ module.exports = class BakaCommand extends BaseCommand {
 
     if (user.id === message.author.id) {
       message.channel.send(
-        `<@${message.author.id}> a insulté <@${message.author.id}> de baka.. Oh wait !`,
+        `${message.author} a insulté ${message.author} de baka.. Oh wait !`,
         {
           embed: {
             color: 0xb1072e,
@@ -34,20 +34,17 @@ module.exports = class BakaCommand extends BaseCommand {
       )
     } else {
       const response = await axios.get('https://nekos.life/api/v2/img/baka')
-      message.channel.send(
-        `<@${message.author.id}> a insulté <@${user.id}> de baka !`,
-        {
-          embed: {
-            color: 0xb1072e,
-            image: {
-              url: response.data.url,
-            },
-            footer: {
-              text: 'Généré avec https://nekos.life/',
-            },
+      message.channel.send(`${message.author} a insulté ${user} de baka !`, {
+        embed: {
+          color: 0xb1072e,
+          image: {
+            url: response.data.url,
           },
-        }
-      )
+          footer: {
+            text: 'Généré avec https://nekos.life/',
+          },
+        },
+      })
     }
   }
 }

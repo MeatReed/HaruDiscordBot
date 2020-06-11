@@ -1,7 +1,7 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 const Pagination = require('discord-paginationembed')
 
-module.exports = class WarnsettingsCommand extends BaseCommand {
+module.exports = class WarnSettingsCommand extends BaseCommand {
   constructor() {
     super({
       name: 'warnsettings',

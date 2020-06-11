@@ -11,7 +11,7 @@ module.exports = class SayCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: ['MANAGE_CHANNELS'],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

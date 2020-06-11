@@ -2,18 +2,18 @@ const BaseCommand = require('../../utils/structures/BaseCommand')
 const isImageUrl = require('is-image-url')
 const isHexcolor = require('is-hexcolor')
 
-module.exports = class LeaveimageCommand extends BaseCommand {
+module.exports = class JoinImageCommand extends BaseCommand {
   constructor() {
     super({
-      name: 'leave_image',
+      name: 'join_image',
       description: '',
       category: 'Administration',
-      usage: 'leave_image',
+      usage: 'join_image',
       enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: ['ATTACH_FILES'],
     })
   }
@@ -26,24 +26,24 @@ module.exports = class LeaveimageCommand extends BaseCommand {
         embed: {
           color: 0xb1072e,
           description:
-            "Vous n'avez pas mis le salon pour le message d'Adieu et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
+            "Vous n'avez pas mis le salon pour le message de Bienvenue et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
         },
       })
     } else if (!args[0]) {
-      if (guildConfig.leave_image === 'off') {
+      if (guildConfig.join_image === 'off') {
         client.ErrorEmbed(
           message,
-          "L'image d'Adieu est désactivé sur ce serveur, faites la commande `h!leave_image on` pour l'activer."
+          "L'image de Bienvenue est désactivé sur ce serveur, faites la commande `h!join_image on` pour l'activer."
         )
         return
       } else {
         const ownerUser = client.getOwner()
         message.channel.send({
           embed: {
-            title: "Image d'Adieu",
+            title: 'Image de bienvenue',
             description:
               "L'image actuel de votre serveur est **" +
-              guildConfig.leave_image_url +
+              guildConfig.join_image_url +
               "**.\n\nS'il y a un problème, vous pouvez faire la commande " +
               `***${client.prefix}report {raison}***` +
               ' ou envoyez moi un message privé `' +
@@ -51,7 +51,7 @@ module.exports = class LeaveimageCommand extends BaseCommand {
               '`\n------------------------------------------------------------------------------',
             color: 0xb1072e,
             image: {
-              url: guildConfig.leave_image_url,
+              url: guildConfig.join_image_url,
             },
             footer: {
               icon_url: message.author.avatarURL(),
@@ -62,23 +62,23 @@ module.exports = class LeaveimageCommand extends BaseCommand {
             },
             fields: [
               {
-                name: 'h!leave_image [on/off]',
+                name: 'h!join_image [on/off]',
                 value:
-                  "**Description:** Permet d'activer ou de désactiver l'image d'Adieu.\n**Exemple:** `h!leave_image on`",
+                  "**Description:** Permet d'activer ou de désactiver l'image de bienvenue.\n**Exemple:** `h!join_image on`",
               },
               {
-                name: 'h!leave_image url [image]',
+                name: 'h!join_image url [image]',
                 value:
-                  "**Description:** Permet de changer l'image d'Adieu.\n**Exemple:** `h!leave_image url https://images3.alphacoders.com/105/thumb-1920-1058494.jpg`",
+                  "**Description:** Permet de changer l'image de bienvenue.\n**Exemple:** `h!join_image url https://images8.alphacoders.com/108/1081308.png`",
               },
               {
-                name: 'h!leave_image reset',
+                name: 'h!join_image reset',
                 value:
-                  '**Description:** Permet de mettre les paramètres par défaut(image, message et couleur).\n**Exemple:** `h!leave_image reset`',
+                  '**Description:** Permet de mettre les paramètres par défaut(image, message et couleur).\n**Exemple:** `h!join_image reset`',
               },
               {
-                name: 'h!leave_image color [circle/welcome/message] [color]',
-                value: `**Description:** Permet de configurer les couleurs sur l'image.\n**Exemple:** \`h!leave_image color circle #ef08ff\`\n\n**Cercle:** ${guildConfig.leave_image_color_circle}\n**BIENVENUE:** ${guildConfig.leave_image_color_welcome}\n**Message:** ${guildConfig.leave_image_color_message}`,
+                name: 'h!join_image color [circle/welcome/message] [color]',
+                value: `**Description:** Permet de configurer les couleurs sur l'image.\n**Exemple:** \`h!join_image color circle #ef08ff\`\n\n**Cercle:** ${guildConfig.join_image_color_circle}\n**BIENVENUE:** ${guildConfig.join_image_color_welcome}\n**Message:** ${guildConfig.join_image_color_message}`,
               },
             ],
           },
@@ -86,55 +86,55 @@ module.exports = class LeaveimageCommand extends BaseCommand {
         return
       }
     } else if (option === 'off') {
-      if (guildConfig.leave_image === 'off') {
+      if (guildConfig.join_image === 'off') {
         client.ErrorEmbed(
           message,
-          "L'image d'Adieu déjà désactivé sur ce serveur, faites la commande `h!leave_image on` pour l'activer."
+          "L'image de Bienvenue déjà désactivé sur ce serveur, faites la commande `h!join_image on` pour l'activer."
         )
         return
       }
       client.updateGuild(message.guild.id, {
-        leave_image: 'off',
+        join_image: 'off',
       })
       client.SuccesEmbed(
         message,
-        "L'image d'Adieu de ce serveur a été désactivé !"
+        "L'image de Bienvenue de ce serveur a été désactivé !"
       )
     } else if (option === 'on') {
-      if (guildConfig.leave_image === 'on') {
+      if (guildConfig.join_image === 'on') {
         client.ErrorEmbed(
           message,
-          "L'image d'Adieu déjà activé sur ce serveur, faites la commande `h!leave_image off` pour le désactiver"
+          "L'image de Bienvenue déjà activé sur ce serveur, faites la commande `h!join_image off` pour le désactiver"
         )
         return
       }
       client.updateGuild(message.guild.id, {
-        leave_image: 'on',
+        join_image: 'on',
       })
       client.SuccesEmbed(
         message,
-        "L'image d'Adieu de ce serveur a été activé !"
+        "L'image de Bienvenue de ce serveur a été activé !"
       )
     } else if (option === 'reset') {
-      if (guildConfig.leave_image === 'off') {
+      if (guildConfig.join_image === 'off') {
         client.ErrorEmbed(
           message,
-          "L'image d'Adieu est désactivé sur ce serveur, faites la commande `h!leave_image on` pour l'activer."
+          "L'image de Bienvenue est désactivé sur ce serveur, faites la commande `h!join_image on` pour l'activer."
         )
         return
       }
       client.updateGuild(message.guild.id, {
-        leave_image_url: 'https://images8.alphacoders.com/108/1081308.png',
-        leave_image_color_circle: '#ffffff',
-        leave_image_color_welcome: '#ffffff',
-        leave_image_color_message: '#ffffff',
+        join_image_url: 'https://images8.alphacoders.com/108/1081308.png',
+        join_image_color_circle: '#ffffff',
+        join_image_color_welcome: '#ffffff',
+        join_image_color_message: '#ffffff',
       })
-      client.SuccesEmbed(message, "L'image d'Adieu a été réinitialisé !")
+      client.SuccesEmbed(message, "L'image de Bienvenue a été réinitialisé !")
     } else if (option === 'url') {
-      if (guildConfig.leave_image === 'off') {
+      if (guildConfig.join_image === 'off') {
         client.ErrorEmbed(
           message,
-          "L'image d'Adieu est désactivé sur ce serveur, faites la commande `h!leave_message on` pour l'activer."
+          "L'image de Bienvenue est désactivé sur ce serveur, faites la commande `h!join_message on` pour l'activer."
         )
         return
       }
@@ -143,11 +143,11 @@ module.exports = class LeaveimageCommand extends BaseCommand {
         return
       }
       client.updateGuild(message.guild.id, {
-        leave_image_url: args[1],
+        join_image_url: args[1],
       })
       message.channel.send({
         embed: {
-          title: "Image d'Adieu modifié!",
+          title: 'Image de Bienvenue modifié!',
           color: 65349,
           image: {
             url: args[1],
@@ -160,7 +160,7 @@ module.exports = class LeaveimageCommand extends BaseCommand {
       if (itemChange === 'circle' && color) {
         if (isHexcolor(color)) {
           client.updateGuild(message.guild.id, {
-            leave_image_color_circle: color,
+            join_image_color_circle: color,
           })
           client.SuccesEmbed(
             message,
@@ -175,7 +175,7 @@ module.exports = class LeaveimageCommand extends BaseCommand {
       } else if (itemChange === 'welcome' && color) {
         if (isHexcolor(color)) {
           client.updateGuild(message.guild.id, {
-            leave_image_color_welcome: color,
+            join_image_color_welcome: color,
           })
           client.SuccesEmbed(
             message,
@@ -192,12 +192,12 @@ module.exports = class LeaveimageCommand extends BaseCommand {
       } else if (itemChange === 'message' && color) {
         if (isHexcolor(color)) {
           client.updateGuild(message.guild.id, {
-            leave_image_color_message: color,
+            join_image_color_message: color,
           })
           client.SuccesEmbed(
             message,
             'La couleur du message `' +
-              guildConfig.leave_message +
+              guildConfig.join_message +
               '` a été modifiée avec succès ! `' +
               color +
               '`'
@@ -213,14 +213,14 @@ module.exports = class LeaveimageCommand extends BaseCommand {
           message,
           '`' +
             itemChange +
-            '` est incorrect ! Voici les éléments disponibles au changement de couleur `circle, welcome, message`\n**Exemple:** `h!leave_image color circle #ef08ff`'
+            '` est incorrect ! Voici les éléments disponibles au changement de couleur `circle, welcome, message`\n**Exemple:** `h!join_image color circle #ef08ff`'
         )
         return
       }
     } else {
       client.ErrorEmbed(
         message,
-        "L'option que vous avez mis est incorrecte ! Faites la commande `h!leave_image` pour voir la liste des options."
+        "L'option que vous avez mis est incorrecte ! Faites la commande `h!join_image` pour voir la liste des options."
       )
     }
   }

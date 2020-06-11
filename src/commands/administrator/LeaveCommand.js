@@ -11,7 +11,7 @@ module.exports = class LeaveCommand extends BaseCommand {
       guildOnly: true,
       nsfw: false,
       aliases: [],
-      userPermissions: [],
+      userPermissions: ['ADMINISTRATOR'],
       clientPermissions: [],
     })
   }

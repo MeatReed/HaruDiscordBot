@@ -1,6 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class WarnremoveCommand extends BaseCommand {
+module.exports = class WarnRemoveCommand extends BaseCommand {
   constructor() {
     super({
       name: 'warnremove',
