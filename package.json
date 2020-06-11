@@ -21,6 +21,7 @@
     "discord-paginationembed": "^2.0.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "is-hexcolor": "^1.0.0",
     "is-image-url": "^1.1.8",
     "moment": "^2.26.0",
     "moment-duration-format": "^2.3.2",

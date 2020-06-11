@@ -61,7 +61,7 @@ module.exports = class JoinImageEvent extends BaseEvent {
         .setShadowOffsetY(3)
         .setShadowColor('rgba(0,0,0,0.3)')
         .setShadowBlur(6)
-        .setColor('#ffffff')
+        .setColor(guildConfig.join_image_color_circle)
         .addCircle(515, 155, 140)
         .addRoundImage(
           await buffer(data.displayAvatarURL({ format: 'png' })),
@@ -77,10 +77,10 @@ module.exports = class JoinImageEvent extends BaseEvent {
         .setShadowOffsetY(3)
         .setShadowColor('rgba(0,0,0,0.3)')
         .setShadowBlur(6)
-        .setColor('#ffffff')
+        .setColor(guildConfig.join_image_color_welcome)
         .setTextFont('50pt Discord')
         .addResponsiveText(`BIENVENUE`, 512, 375, 500)
-        .setColor('#ffffff')
+        .setColor(guildConfig.join_image_color_message)
         .setTextFont('30pt Discord')
         .addResponsiveText(
           guildConfig.join_message

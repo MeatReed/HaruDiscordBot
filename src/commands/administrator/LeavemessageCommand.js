@@ -35,19 +35,43 @@ module.exports = class LeavemessageCommand extends BaseCommand {
         )
         return
       } else {
+        const ownerUser = client.getOwner()
         message.channel.send({
           embed: {
-            color: 0xb1072e,
+            title: "Message d 'Adieu",
             description:
-              "Le message d'Adieu de ce serveur est : **" +
+              "Message d 'Adieu actuel de votre serveur est **" +
               guildConfig.leave_message +
-              '**\nPour le changer, faites `' +
-              guildConfig.prefix +
-              'leave_message [message]`\nPour remettre le message par défaut, faites `' +
-              guildConfig.prefix +
-              'leave_message reset`\nPour le désactiver, faites `' +
-              guildConfig.prefix +
-              'leave_message off`',
+              "**.\n\nS'il y a un problème, vous pouvez faire la commande " +
+              `***${client.prefix}report {raison}***` +
+              ' ou envoyez moi un message privé `' +
+              ownerUser.tag +
+              '`\n------------------------------------------------------------------------------',
+            color: 0xb1072e,
+            footer: {
+              icon_url: message.author.avatarURL(),
+              text: 'Demandée par ' + message.author.tag,
+            },
+            thumbnail: {
+              url: client.user.avatarURL(),
+            },
+            fields: [
+              {
+                name: 'h!leave_message [on/off]',
+                value:
+                  "**Description:** Permet d'activer ou de désactiver le message d'Adieu.\n**Exemple:** `h!leave_message on`",
+              },
+              {
+                name: 'h!leave_message reset',
+                value:
+                  '**Description:** Permet de mettre les paramètres par défaut(message).\n**Exemple:** `h!leave_message reset`',
+              },
+              {
+                name: 'h!leave_message [message]',
+                value:
+                  "**Description:** Permet de changer le message d'Adieu.\n**Exemple:** `h!leave_message {user} a quitté le serveur.`\n\n{user} = mention\n{username} = pseudo de l'utilisateur\n{server} = nom du serveur",
+              },
+            ],
           },
         })
         return
