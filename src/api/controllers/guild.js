@@ -76,6 +76,69 @@ router.post('/setGuildConfig', verifyToken, async function (req, res, next) {
   })
 })
 
+router.post('/getChannel', verifyToken, async function (req, res, next) {
+  jwt.verify(req.token, process.env.API_SECRET, async (err, decode) => {
+    if (err) {
+      return res.status(400).json({
+        error: 'Une erreur est survenue.',
+      })
+    }
+    const guild_id = req.body.guild_id
+    const channel_id = req.body.channel_id
+    if (channel_id && guild_id) {
+      const guild = req.client.guilds.cache.get(guild_id)
+      if (!guild) {
+        return res.status(400).json({
+          error: 'Une erreur est survenue.',
+        })
+      }
+      const channel = guild.channels.cache.get(channel_id)
+      if (!channel) {
+        return res.status(400).json({
+          error: 'Une erreur est survenue.',
+        })
+      }
+      return res.status(200).send(channel)
+    } else {
+      return res.status(400).json({
+        error: 'Une erreur est survenue.',
+      })
+    }
+  })
+})
+
+router.post('/getChannels', verifyToken, async function (req, res, next) {
+  jwt.verify(req.token, process.env.API_SECRET, async (err, decode) => {
+    if (err) {
+      return res.status(400).json({
+        error: 'Une erreur est survenue.',
+      })
+    }
+    const guild_id = req.body.guild_id
+    if (guild_id) {
+      const guild = req.client.guilds.cache.get(guild_id)
+      if (!guild) {
+        return res.status(400).json({
+          error: 'Une erreur est survenue.',
+        })
+      }
+      const channel = guild.channels.cache
+        .filter((c) => c.type === 'text')
+        .filter((c) => c.permissionsFor(req.client.user).has('SEND_MESSAGES'))
+      if (!channel) {
+        return res.status(400).json({
+          error: 'Une erreur est survenue.',
+        })
+      }
+      return res.status(200).send(channel)
+    } else {
+      return res.status(400).json({
+        error: 'Une erreur est survenue.',
+      })
+    }
+  })
+})
+
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers.authorization
 
