@@ -17,4 +17,19 @@ router.post('/getGuildConfig/', async function (req, res, next) {
   }
 })
 
+router.post('/setGuildConfig/', async function (req, res, next) {
+  const guild_id = req.body.guild_id
+  const data = req.body.data
+  if (guild_id) {
+    const guildConfig = await req.client.getGuild(guild_id)
+    if (guildConfig) {
+      res.status(200).json(guildConfig)
+    } else {
+      res.status(200).send(null)
+    }
+  } else {
+    res.status(200).send(null)
+  }
+})
+
 module.exports = router
