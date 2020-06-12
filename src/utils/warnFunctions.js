@@ -1,6 +1,3 @@
-require('dotenv').config()
-const sm = require('string-similarity')
-
 module.exports = (client) => {
   client.userWarnsList = async (guild_id, user_id) => {
     try {

@@ -4,7 +4,7 @@ module.exports = class LeaveCommand extends BaseCommand {
   constructor() {
     super({
       name: 'leave',
-      description: '',
+      description: 'Simule un utilisateur qui quitte le serveur.',
       category: 'Administration',
       usage: 'leave',
       enabled: true,

@@ -4,9 +4,9 @@ module.exports = class JoinMessageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'join_message',
-      description: '',
+      description: 'Permet de configurer le message de bienvenue',
       category: 'Administration',
-      usage: 'join_message [on/off] | [message]',
+      usage: 'join_message [on/off] | [message] | [reset]',
       enabled: true,
       guildOnly: true,
       nsfw: false,

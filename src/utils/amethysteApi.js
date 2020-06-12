@@ -1,4 +1,3 @@
-require('dotenv').config()
 const ameClient = require('amethyste-api')
 
 module.exports = {

@@ -25,11 +25,13 @@
     "express": "^4.17.1",
     "is-hexcolor": "^1.0.0",
     "is-image-url": "^1.1.8",
+    "jsonwebtoken": "^8.5.1",
     "moment": "^2.26.0",
     "moment-duration-format": "^2.3.2",
     "moment-fr": "^0.0.1",
     "mysql2": "^2.1.0",
     "string-similarity": "^4.0.1",
+    "uuid": "^8.1.0",
     "ytdl-core": "^2.1.7"
   },
   "devDependencies": {

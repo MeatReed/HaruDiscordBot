@@ -6,9 +6,9 @@ module.exports = class LeaveImageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'leave_image',
-      description: '',
+      description: "Permet de configurer l'image d'Adieu.",
       category: 'Administration',
-      usage: 'leave_image',
+      usage: 'leave_image [on/off] | [message] | [url] | [color]',
       enabled: true,
       guildOnly: true,
       nsfw: false,
@@ -26,7 +26,7 @@ module.exports = class LeaveImageCommand extends BaseCommand {
         embed: {
           color: 0xb1072e,
           description:
-            "Vous n'avez pas mis le salon pour le message d'Adieu et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
+            "Vous n'avez pas mis le salon pour le message de Bienvenue et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
         },
       })
     } else if (!args[0]) {

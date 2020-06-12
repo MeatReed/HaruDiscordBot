@@ -4,7 +4,7 @@ module.exports = class SayCommand extends BaseCommand {
   constructor() {
     super({
       name: 'say',
-      description: '',
+      description: "Permet d'envoyer un message depuis Haru.",
       category: 'Administration',
       usage: 'say [message]',
       enabled: true,

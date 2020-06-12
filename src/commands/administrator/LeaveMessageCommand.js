@@ -4,9 +4,9 @@ module.exports = class LeaveMessageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'leave_message',
-      description: '',
+      description: "Permet de configurer le message d'Adieu.",
       category: 'Administration',
-      usage: 'leave_message [on/off] | [message]',
+      usage: 'leave_message [on/off] | [message] | [reset]',
       enabled: true,
       guildOnly: true,
       nsfw: false,

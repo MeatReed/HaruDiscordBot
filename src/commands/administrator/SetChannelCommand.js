@@ -4,7 +4,8 @@ module.exports = class SetChannelCommand extends BaseCommand {
   constructor() {
     super({
       name: 'setchannel',
-      description: '',
+      description:
+        "Permet de configurer le salon pour le message de Bienvenue et d'Adieu.",
       category: 'Administration',
       usage: 'setchannel {salon}',
       enabled: true,

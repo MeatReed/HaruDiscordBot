@@ -6,9 +6,9 @@ module.exports = class JoinImageCommand extends BaseCommand {
   constructor() {
     super({
       name: 'join_image',
-      description: '',
+      description: "Permet de configurer l'image de bienvenue.",
       category: 'Administration',
-      usage: 'join_image',
+      usage: 'join_image [on/off] | [message] | [url] | [color]',
       enabled: true,
       guildOnly: true,
       nsfw: false,

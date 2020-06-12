@@ -7,7 +7,7 @@ module.exports = class WarnSettingsCommand extends BaseCommand {
       name: 'warnsettings',
       description: '',
       category: 'Modération',
-      usage: 'warnsettings',
+      usage: 'warnsettings [list] | [add] | [remove] | [dm] | [sanctionlist]',
       enabled: true,
       guildOnly: true,
       nsfw: false,
