@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const api = require('../api')
+const cors = require('cors')
 
 module.exports = (client) => {
   app.use(bodyParser.json())
@@ -14,6 +15,8 @@ module.exports = (client) => {
     req.client = client
     next()
   })
+
+  app.use(cors())
 
   // Import API Routes
   app.use('/api', api)
