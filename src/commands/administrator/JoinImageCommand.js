@@ -8,7 +8,7 @@ module.exports = class JoinImageCommand extends BaseCommand {
       name: 'join_image',
       description: "Permet de configurer l'image de bienvenue.",
       category: 'Administration',
-      usage: 'join_image [on/off] | [message] | [url] | [color]',
+      usage: 'join_image [on/off] | [message] | [url] |[color]',
       enabled: true,
       guildOnly: true,
       nsfw: false,
@@ -21,12 +21,12 @@ module.exports = class JoinImageCommand extends BaseCommand {
   async run(client, message, args) {
     const guildConfig = await client.getGuild(message.guild.id)
     const option = args[0]
-    if (!guildConfig.channel) {
+    if (!guildConfig.join_channel) {
       message.channel.send({
         embed: {
           color: 0xb1072e,
           description:
-            "Vous n'avez pas mis le salon pour le message de Bienvenue et d'Adieu.\nPour mettre un salon faites, faites `h!setchannel {salon}`",
+            "Vous n'avez pas mis le salon pour le message/image de Bienvenue.\nPour mettre un salon faites, faites `h!join_channel {salon}`",
         },
       })
     } else if (!args[0]) {

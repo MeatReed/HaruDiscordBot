@@ -12,8 +12,8 @@ module.exports = class JoinImageEvent extends BaseEvent {
 
   async run(client, member) {
     const guildConfig = await client.getGuild(member.guild.id)
-    if (guildConfig.join_image === 'on' && guildConfig.channel) {
-      const channel = member.guild.channels.cache.get(guildConfig.channel)
+    if (guildConfig.join_image === 'on' && guildConfig.join_channel) {
+      const channel = member.guild.channels.cache.get(guildConfig.join_channel)
       if (channel) {
         if (guildConfig.join === 'on') {
           channel.send(

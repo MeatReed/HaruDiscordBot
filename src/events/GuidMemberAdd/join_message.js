@@ -7,9 +7,9 @@ module.exports = class JoinMessageEvent extends BaseEvent {
 
   async run(client, member) {
     const guildConfig = await client.getGuild(member.guild.id)
-    if (guildConfig.join === 'on' && guildConfig.channel) {
+    if (guildConfig.join === 'on' && guildConfig.join_channel) {
       if (guildConfig.join_image === 'on') return
-      const channel = member.guild.channels.cache.get(guildConfig.channel)
+      const channel = member.guild.channels.cache.get(guildConfig.leave_channel)
       if (channel) {
         channel.send(
           guildConfig.join_message

@@ -7,9 +7,9 @@ module.exports = class LeaveMessageEvent extends BaseEvent {
 
   async run(client, member) {
     const guildConfig = await client.getGuild(member.guild.id)
-    if (guildConfig.leave === 'on' && guildConfig.channel) {
+    if (guildConfig.leave === 'on' && guildConfig.leave_channel) {
       if (guildConfig.leave_image === 'on') return
-      const channel = member.guild.channels.cache.get(guildConfig.channel)
+      const channel = member.guild.channels.cache.get(guildConfig.leave_channel)
       if (channel) {
         channel.send(
           guildConfig.leave_message

@@ -1,14 +1,14 @@
 const BaseCommand = require('../../utils/structures/BaseCommand')
 
-module.exports = class SetChannelCommand extends BaseCommand {
+module.exports = class JoinChannelCommand extends BaseCommand {
   constructor() {
     super({
-      name: 'setchannel',
+      name: 'join_channel',
       description:
-        "Permet de configurer le salon pour le message de Bienvenue et d'Adieu.",
+        'Permet de configurer le salon pour le message/image de Bienvenue.',
       category: 'Administration',
-      usage: 'setchannel {salon}',
-      enabled: false,
+      usage: 'join_channel {salon}',
+      enabled: true,
       guildOnly: true,
       nsfw: false,
       aliases: [],
@@ -20,25 +20,27 @@ module.exports = class SetChannelCommand extends BaseCommand {
   async run(client, message, args) {
     const guildConfig = await client.getGuild(message.guild.id)
     if (!args.join(' ')) {
-      if (guildConfig.channel === null) {
+      if (guildConfig.join_channel === null) {
         message.channel.send({
           embed: {
             color: 0xb1072e,
             description:
-              "Il n'y a pas de salon pour le message de Bienvenue et d'Adieu.\nPour mettre le salon, faites `" +
+              "Il n'y a pas de salon pour le message/image de Bienvenue.\nPour mettre le salon, faites `" +
               guildConfig.prefix +
-              'setchannel {salon}`',
+              'join_channel {salon}`',
           },
         })
         return
       }
-      const dbChannel = message.guild.channels.cache.get(guildConfig.channel)
+      const dbChannel = message.guild.channels.cache.get(
+        guildConfig.join_channel
+      )
       message.channel.send({
         embed: {
           color: 0xb1072e,
           description:
-            "Le salon pour le message de Bienvenue et d'Adieu est : **#" +
-            dbChannel.name +
+            'Le salon pour le message/image de Bienvenue est : **#' +
+            dbChannel.join_channel +
             '**\nPour changer le salon, faites `' +
             guildConfig.prefix +
             'setchannel {salon}`\nPour enlever le salon, faites `' +
@@ -51,7 +53,7 @@ module.exports = class SetChannelCommand extends BaseCommand {
 
     if (args.join(' ') === 'remove') {
       client.updateGuild(message.guild.id, {
-        channel: null,
+        join_channel: null,
       })
       client.SuccesEmbed(
         message,
@@ -68,14 +70,14 @@ module.exports = class SetChannelCommand extends BaseCommand {
     }
 
     client.updateGuild(message.guild.id, {
-      channel: channel.id,
+      join_channel: channel.id,
     })
 
     message.channel.send({
       embed: {
         title: 'Channel modifié!',
         color: 65349,
-        description: `Le salon pour le message de Bienvenue et d'Adieu est maintenant ${channel}`,
+        description: `Le salon pour le message/image de Bienvenue est maintenant ${channel}`,
       },
     })
   }
