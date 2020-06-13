@@ -38,8 +38,8 @@ module.exports = class NpCommand extends BaseCommand {
       )
       return
     }
-    let queue = client.music.getCurrentQueue(
-      client.queue.QUEUES,
+    const queue = client.music.getCurrentQueue(
+      client.queue.LAVALINK,
       message.guild.id
     )
     ytdl.getInfo(queue[0].info.url).then(async function (info) {

@@ -40,7 +40,7 @@ module.exports = class QueueCommand extends BaseCommand {
       return
     }
     const queue = client.music.getCurrentQueue(
-      client.queue.QUEUES,
+      client.queue.LAVALINK,
       message.guild.id
     )
     const nowplaying = queue[0]

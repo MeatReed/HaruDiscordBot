@@ -28,6 +28,7 @@ const nodes = [
     })
   }, 30000)
   client.music = require('./utils/player')
+  client.ytdl = require('./utils/ytdl')
   require('./utils/guildFunctions')(client)
   require('./utils/warnFunctions')(client)
   require('./utils/functions')(client)

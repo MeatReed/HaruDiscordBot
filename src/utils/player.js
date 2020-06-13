@@ -33,10 +33,7 @@ function shuffle(array) {
 
 module.exports.play = async (client, message, guild) => {
   try {
-    /*if(guild.channels.cache.get(guild.me.voiceChannelID).members.filter((m) => m.id !== client.user.id).size === 0) {
-            return client.manager.leave(guild.id);
-        } else {*/
-    let queue = await this.getCurrentQueue(client.queue.QUEUES, guild.id)
+    let queue = await this.getCurrentQueue(client.queue.LAVALINK, guild.id)
     if (queue.length === 0) {
       client.manager.leave(guild.id)
       return
@@ -95,10 +92,6 @@ module.exports.play = async (client, message, guild) => {
             value: player.shuffle === false ? 'Désactivée' : 'Activée',
             inline: true,
           },
-          /*{
-            name: 'Player via le site',
-            value: `http://${client.config.WEBSITE.DOMAINE}:${client.config.WEBSITE.PORT}/musique/${message.guild.id}`,
-          },*/
         ],
       },
     })
@@ -124,7 +117,6 @@ module.exports.play = async (client, message, guild) => {
       }
       await this.play(client, message, message.guild)
     })
-    //}
   } catch (error) {
     if (error) {
       client.ErrorEmbed(
@@ -140,7 +132,7 @@ module.exports.addToQueue = async (client, message, track) => {
   console.log(track)
   try {
     let queue = await this.getCurrentQueue(
-      client.queue.QUEUES,
+      client.queue.LAVALINK,
       message.guild.id
     )
 

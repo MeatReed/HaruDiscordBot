@@ -37,7 +37,7 @@ module.exports = class StopCommand extends BaseCommand {
       return
     }
     let queue = client.music.getCurrentQueue(
-      client.queue.QUEUES,
+      client.queue.LAVALINK,
       message.guild.id
     )
     if (queue.length > 0) {
