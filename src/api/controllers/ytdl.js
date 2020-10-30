@@ -4,29 +4,23 @@ const path = require('path')
 const ytdl = require('ytdl-core')
 
 router.get('/mp3/:songIdentifier/:songTitle', async function (req, res, next) {
-  ytdl.getInfo(req.params.songIdentifier, (err, info) => {
-    if (err) {
-      return res.status(404).json({
-        err: 'songIdentifier incorrect',
-      })
-    } else {
-      let file = req.params.songTitle
+  let info = await ytdl.getInfo(req.params.songIdentifier)
 
-      var fileLocation = path.join('./mp3', file + '.mp3')
+  const file = req.params.songTitle
 
-      if (!fileLocation) {
-        return res.status(404).json({
-          err: 'Musique introuvable',
-        })
-      } else {
-        info = info.player_response.videoDetails
+  const fileLocation = path.join('./mp3', file + '.mp3')
 
-        const videoTitle = info.title
+  if (!fileLocation) {
+    return res.status(404).json({
+      err: 'Musique introuvable',
+    })
+  } else {
+    info = info.player_response.videoDetails
 
-        res.download(fileLocation, videoTitle + '.mp3')
-      }
-    }
-  })
+    const videoTitle = info.title
+
+    res.download(fileLocation, videoTitle + '.mp3')
+  }
 })
 
 module.exports = router

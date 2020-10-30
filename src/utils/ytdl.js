@@ -23,7 +23,7 @@ module.exports.convert = async (client, message) => {
       '<a:loading:644636255006490640> Conversion en cours..'
     )
 
-    const identifier = currentSong.identifier
+    const identifier = currentSong.uri
 
     const stream = ytdl(identifier, {
       format: 'mp3',
@@ -33,33 +33,25 @@ module.exports.convert = async (client, message) => {
 
     const start = Date.now()
 
-    ytdl.getInfo(identifier, async (err, info) => {
-      if (err) {
-        client.ErrorEmbed(
-          message,
-          'Une erreur est survenue : \n```JS\n' + err.message + '```'
-        )
-        return
-      } else {
-        const audioBitrate = info.formats[0].audioBitrate
+    const info = await ytdl.getInfo(identifier)
 
-        info = info.player_response.videoDetails
+    const videoDetails = info.player_response.videoDetails
 
-        const videoTitle = info.title
-        let artist = 'Inconnu'
-        let title = 'Inconnu'
+    const videoTitle = videoDetails.title
+    let artist = 'Inconnu'
+    let title = 'Inconnu'
 
-        if (videoTitle.indexOf('-') > -1) {
-          var temp = videoTitle.split('-')
-          if (temp.length >= 2) {
-            artist = temp[0].trim()
-            title = temp[1].trim()
-          }
-        } else {
-          title = videoTitle
-        }
+    if (videoTitle.indexOf('-') > -1) {
+      var temp = videoTitle.split('-')
+      if (temp.length >= 2) {
+        artist = temp[0].trim()
+        title = temp[1].trim()
+      }
+    } else {
+      title = videoTitle
+    }
 
-        /*var outputOptions = [
+    /*var outputOptions = [
           '-id3v2_version',
           '4',
           '-metadata',
@@ -70,56 +62,51 @@ module.exports.convert = async (client, message) => {
           'artist=' + artist,
         ]*/
 
-        const nameSave = `${Date.now()}-${message.author.id}`
+    const nameSave = `${Date.now()}-${message.author.id}`
+    ffmpeg(stream)
+      .format('mp3')
+      .save(`./mp3/${nameSave}.mp3`)
+      .on('error', function (err) {
+        console.log(err)
+        client.ErrorEmbed(
+          message,
+          'Une erreur est survenue : \n```JS\n' + err.message + '```'
+        )
+        queue.shift()
 
-        ffmpeg(stream)
-          .audioBitrate(audioBitrate)
-          .format('mp3')
-          .noVideo()
-          .withAudioCodec('libmp3lame')
-          .save(`./mp3/${nameSave}.mp3`)
-          .on('error', function (err) {
-            client.ErrorEmbed(
-              message,
-              'Une erreur est survenue : \n```JS\n' + err.message + '```'
-            )
-            queue.shift()
+        this.convert(client, message)
+        return
+      })
+      .on('progress', (p) => {
+        readline.cursorTo(process.stdout, 0)
+        process.stdout.write(`${p.targetSize}kb downloaded`)
+      })
+      .on('end', async () => {
+        await loading.delete()
+        console.log(`\ndone, thanks - ${(Date.now() - start) / 1000}s`)
 
-            this.convert(client, message)
-            return
-          })
-          .on('progress', (p) => {
-            readline.cursorTo(process.stdout, 0)
-            process.stdout.write(`${p.targetSize}kb downloaded`)
-          })
-          .on('end', async () => {
-            await loading.delete()
-            console.log(`\ndone, thanks - ${(Date.now() - start) / 1000}s`)
+        message.channel.send(
+          '[' +
+            (Date.now() - start) / 1000 +
+            's] Voici le fichier mp3 de la vidéo Youtube `' +
+            title +
+            '` : http://' +
+            process.env.WEB_IP +
+            ':' +
+            process.env.WEB_PORT +
+            '/api/mp3/' +
+            videoDetails.videoId +
+            '/' +
+            `${nameSave}`
+        )
 
-            message.channel.send(
-              '[' +
-                (Date.now() - start) / 1000 +
-                's] Voici le fichier mp3 de la vidéo Youtube `' +
-                title +
-                '` : http://' +
-                process.env.WEB_IP +
-                ':' +
-                process.env.WEB_PORT +
-                '/api/mp3/' +
-                info.videoId +
-                '/' +
-                `${nameSave}`
-            )
+        queue.shift()
 
-            queue.shift()
-
-            this.convert(client, message)
-          })
-      }
-    })
+        this.convert(client, message)
+      })
   } catch (exception) {
     if (exception) {
-      client.message.ErrorEmbed(
+      client.ErrorEmbed(
         message,
         'Une erreur est survenue : \n```JS\n' + exception.message + '```'
       )
@@ -135,7 +122,6 @@ module.exports.addToQueue = async (client, message, track) => {
       client.queue.YTDL,
       message.guild.id
     )
-
     const songs = await client.music.getSongs(
       client.manager,
       `ytsearch: ${track}`

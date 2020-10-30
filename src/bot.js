@@ -26,7 +26,7 @@ const nodes = [
       error
       node
     })
-  }, 30000)
+  }, 15000)
   client.music = require('./utils/player')
   client.ytdl = require('./utils/ytdl')
   require('./utils/guildFunctions')(client)
